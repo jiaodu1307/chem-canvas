@@ -1,5 +1,7 @@
 # Agent 接入 Chem Canvas
 
+**简体中文** · [English](agent-hosts.en.md)
+
 支持本地 **MCP stdio** 的 Agent 可以启动同一份 Chem Canvas。模型、对话、工具授权由宿主管理。画布在本机保存项目、绑定分子结构、记录图稿与批注。只需生成普通 SVG 或实验表格时，也可以直接在对话中完成。
 
 ## 在自己的机器上配置
@@ -17,22 +19,22 @@ node scripts/plugin-config.js --host cursor --profile figure-chemistry
 
 | 宿主 | `--host` | 合并到哪里 |
 | --- | --- | --- |
-| TRAE IDE（本地任务或工作树） | `trae` | 工作区 `.trae/mcp.json`。在设置 → MCP 中启用项目级 MCP，并在当前智能体启用服务。[TRAE 国内文档](https://docs.trae.cn/ide_add-mcp-servers) |
-| TRAE CLI 2.0 | `trae-cli` | 将输出的 TOML 表合并到 `~/.trae/traecli.toml`，在 TUI 使用 `/mcp` 检查。工具范围和项目通过命令参数传递。[CLI 配置文件](https://docs.trae.cn/cli_config-file) |
-| Qoder CN 国内版 IDE | `qoder-cn` | `--install-user` 合并到 `~/.qoder-cn/mcp.json`。设置 → MCP 服务 → 我的服务中可展开工具。[国内版 IDE](https://docs.qoder.cn/user-guide/guide-for-using-mcp) |
-| Qoder CLI（国际版 / 国内版） | `qoder-cli` | `--install-project` 合并到 `.qoder/settings.local.json`。从该工作区运行 `qoder mcp list` 或 `qodercn mcp list`。[国际版 CLI](https://docs.qoder.com/cli/mcp-servers) · [国内版 CLI](https://docs.qoder.cn/cli/mcp-reference) |
-| Qoder 桌面应用（Connectors）或传统国际版 IDE | `qoder` | Connectors 桌面用 `--install-user` 写入 `~/.qoder/settings.json`。传统国际版 IDE 用 Settings → MCP → My Servers → Add 打开配置，传该文件给 `--install-file`。[桌面 Connectors](https://docs.qoder.com/qoder/connectors) · [国内桌面 Connectors](https://docs.qoder.cn/qoder/connectors) · [国际版 IDE](https://docs.qoder.com/user-guide/chat/model-context-protocol) |
-| Kimi Code CLI | `kimi` | 项目 `.kimi-code/mcp.json`，或用户 `~/.kimi-code/mcp.json`（尊重 `KIMI_CODE_HOME`）。项目配置生效需要信任当前工作区，新会话中使用 `/mcp` 检查。[Kimi Code MCP](https://www.kimi.com/code/docs/kimi-code-cli/customization/mcp.html) |
-| Codex CLI / 桌面端本地环境 | `codex` | `~/.codex/config.toml` 中的 `mcp_servers`。已安装项目的原生 Codex 插件时可直接使用已有连接。[官方配置](https://developers.openai.com/codex/mcp) |
-| Claude Code | `claude-code` | 工作项目根目录的 `.mcp.json`。运行 `claude mcp get chem-canvas` 查看连接状态。[官方配置](https://code.claude.com/docs/en/mcp) |
-| Claude Desktop | `claude-desktop` | 设置 → Developer → Edit Config，对应 `claude_desktop_config.json`。[本地服务器配置](https://modelcontextprotocol.io/docs/develop/connect-local-servers) |
-| Cursor | `cursor` | 项目 `.cursor/mcp.json` 或用户 `~/.cursor/mcp.json`。[官方配置](https://cursor.com/docs/mcp) |
-| VS Code 编辑器中的 Copilot | `vscode` | 工作区 `.vscode/mcp.json` 中的 `servers`。可用「MCP: List Servers」检查。[官方配置](https://code.visualstudio.com/docs/agents/reference/mcp-configuration) |
-| GitHub Copilot CLI | `copilot-cli` | `~/.copilot/mcp-config.json` 中的 `mcpServers`。工具范围由 Chem Canvas 的 `--profile` 控制。[官方配置](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers) |
-| Gemini CLI | `gemini` | `.gemini/settings.json` 中的 `mcpServers`。在会话中输入 `/mcp` 查看。[官方配置](https://geminicli.com/docs/tools/mcp-server/) |
-| OpenCode（使用 `mcp.servers` 的版本） | `opencode` | 工作项目 `opencode.jsonc`。本地服务器使用 `type: "local"` 和命令数组。[官方配置](https://opencode.ai/docs/mcp-servers/) |
-| Zed | `zed` | Settings → AI → MCP Servers，或合并到 settings.json 的 `context_servers`。[官方配置](https://zed.dev/docs/ai/mcp) |
-| 其他可启动本地 stdio 进程的宿主 | `generic`（默认） | 使用 `mcpServers` JSON 的客户端可直接合并。表单式客户端将 `command` 填入可执行文件、`args` 逐项填入参数、`env` 填入环境变量。 |
+| <a id="host-trae" name="host-trae"></a>TRAE IDE（本地任务或工作树） | `trae` | 工作区 `.trae/mcp.json`。在设置 → MCP 中启用项目级 MCP，并在当前智能体启用服务。[TRAE 国内文档](https://docs.trae.cn/ide_add-mcp-servers) |
+| <a id="host-trae-cli" name="host-trae-cli"></a>TRAE CLI 2.0 | `trae-cli` | 将输出的 TOML 表合并到 `~/.trae/traecli.toml`，在 TUI 使用 `/mcp` 检查。工具范围和项目通过命令参数传递。[CLI 配置文件](https://docs.trae.cn/cli_config-file) |
+| <a id="host-qoder-cn" name="host-qoder-cn"></a>Qoder CN 国内版 IDE | `qoder-cn` | `--install-user` 合并到 `~/.qoder-cn/mcp.json`。设置 → MCP 服务 → 我的服务中可展开工具。[国内版 IDE](https://docs.qoder.cn/user-guide/guide-for-using-mcp) |
+| <a id="host-qoder-cli" name="host-qoder-cli"></a>Qoder CLI（国际版 / 国内版） | `qoder-cli` | `--install-project` 合并到 `.qoder/settings.local.json`。从该工作区运行 `qoder mcp list` 或 `qodercn mcp list`。[国际版 CLI](https://docs.qoder.com/cli/mcp-servers) · [国内版 CLI](https://docs.qoder.cn/cli/mcp-reference) |
+| <a id="host-qoder" name="host-qoder"></a>Qoder 桌面应用（Connectors）或传统国际版 IDE | `qoder` | Connectors 桌面用 `--install-user` 写入 `~/.qoder/settings.json`。传统国际版 IDE 用 Settings → MCP → My Servers → Add 打开配置，传该文件给 `--install-file`。[桌面 Connectors](https://docs.qoder.com/qoder/connectors) · [国内桌面 Connectors](https://docs.qoder.cn/qoder/connectors) · [国际版 IDE](https://docs.qoder.com/user-guide/chat/model-context-protocol) |
+| <a id="host-kimi" name="host-kimi"></a>Kimi Code CLI | `kimi` | 项目 `.kimi-code/mcp.json`，或用户 `~/.kimi-code/mcp.json`（尊重 `KIMI_CODE_HOME`）。项目配置生效需要信任当前工作区，新会话中使用 `/mcp` 检查。[Kimi Code MCP](https://www.kimi.com/code/docs/kimi-code-cli/customization/mcp.html) |
+| <a id="host-codex" name="host-codex"></a>Codex CLI / 桌面端本地环境 | `codex` | `~/.codex/config.toml` 中的 `mcp_servers`。已安装项目的原生 Codex 插件时可直接使用已有连接。[官方配置](https://developers.openai.com/codex/mcp) |
+| <a id="host-claude-code" name="host-claude-code"></a>Claude Code | `claude-code` | 工作项目根目录的 `.mcp.json`。运行 `claude mcp get chem-canvas` 查看连接状态。[官方配置](https://code.claude.com/docs/en/mcp) |
+| <a id="host-claude-desktop" name="host-claude-desktop"></a>Claude Desktop | `claude-desktop` | 设置 → Developer → Edit Config，对应 `claude_desktop_config.json`。[本地服务器配置](https://modelcontextprotocol.io/docs/develop/connect-local-servers) |
+| <a id="host-cursor" name="host-cursor"></a>Cursor | `cursor` | 项目 `.cursor/mcp.json` 或用户 `~/.cursor/mcp.json`。[官方配置](https://cursor.com/docs/mcp) |
+| <a id="host-vscode" name="host-vscode"></a>VS Code 编辑器中的 Copilot | `vscode` | 工作区 `.vscode/mcp.json` 中的 `servers`。可用「MCP: List Servers」检查。[官方配置](https://code.visualstudio.com/docs/agents/reference/mcp-configuration) |
+| <a id="host-copilot-cli" name="host-copilot-cli"></a>GitHub Copilot CLI | `copilot-cli` | `~/.copilot/mcp-config.json` 中的 `mcpServers`。工具范围由 Chem Canvas 的 `--profile` 控制。[官方配置](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers) |
+| <a id="host-gemini" name="host-gemini"></a>Gemini CLI | `gemini` | `.gemini/settings.json` 中的 `mcpServers`。在会话中输入 `/mcp` 查看。[官方配置](https://geminicli.com/docs/tools/mcp-server/) |
+| <a id="host-opencode" name="host-opencode"></a>OpenCode（使用 `mcp.servers` 的版本） | `opencode` | 工作项目 `opencode.jsonc`。本地服务器使用 `type: "local"` 和命令数组。[官方配置](https://opencode.ai/docs/mcp-servers/) |
+| <a id="host-zed" name="host-zed"></a>Zed | `zed` | Settings → AI → MCP Servers，或合并到 settings.json 的 `context_servers`。[官方配置](https://zed.dev/docs/ai/mcp) |
+| <a id="host-generic" name="host-generic"></a>其他可启动本地 stdio 进程的宿主 | `generic`（默认） | 使用 `mcpServers` JSON 的客户端可直接合并。表单式客户端将 `command` 填入可执行文件、`args` 逐项填入参数、`env` 填入环境变量。 |
 
 **选择工具范围。** `--profile figure` 提供一个整图工具，可读取批注、预览、保存、导出；`figure-chemistry` 额外提供分子录入和解析。需要读取卡片引用、处理分子提案或查看修改历史时用 `full`，它也是缺省设置。支持工具返回图片的宿主可以直接展示 PNG 预览；文本客户端可读取图稿工具返回的本机编辑页和导出链接。
 

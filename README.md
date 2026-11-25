@@ -1,8 +1,42 @@
 # Chem Canvas
 
-用 Agent 绘制有机化学期刊图表。在本地画布上，你可以框选一处结构或条件文字，让 Agent 修改同一份 SVG。需要核对分子时，图中的结构可以绑定到 RDKit 分子记录。
+**简体中文** · [English](README.en.md)
 
-**[浏览 16 个文献案例](https://jiaodu1307.github.io/chem-canvas/)**　·　[复制安装提示词](#把这段话发给你的-agent)　·　[查看支持的客户端](docs/agent-hosts.zh-CN.md)
+用你自己的 Agent 绘制、校对有机化学期刊图表。Agent 写 SVG，你在图上框选一个配体、一行条件或一个表格单元格，留下修改意见。需要核对结构时，可以把图中的分子绑定到 RDKit 记录，改完再导出。
+
+[浏览 16 个文献案例](https://jiaodu1307.github.io/chem-canvas/) · [复制安装提示词](#把这段话发给你的-agent) · [下载盲测输入](benchmarks/README.md)
+
+## 支持的 Agent
+
+**已在客户端验证连接或工具发现**
+
+[![Codex](docs/agents/codex.svg)](docs/agent-hosts.zh-CN.md#host-codex)
+[![Claude Code](docs/agents/claude-code.svg)](docs/agent-hosts.zh-CN.md#host-claude-code)
+[![Kimi Code CLI](docs/agents/kimi.svg)](docs/agent-hosts.zh-CN.md#host-kimi)
+[![Qoder CLI](docs/agents/qoder-cli.svg)](docs/agent-hosts.zh-CN.md#host-qoder-cli)
+
+Codex 和 Kimi Code CLI 实际列出了画布工具，Claude Code 和 Qoder 国际版 CLI 返回了连接成功。点击图标可查看对应配置。
+
+**已用生成的配置启动服务并读取图稿**
+
+[![TRAE](docs/agents/trae.svg)](docs/agent-hosts.zh-CN.md#host-trae)
+[![Qoder](docs/agents/qoder.svg)](docs/agent-hosts.zh-CN.md#host-qoder-cn)
+
+覆盖 TRAE IDE、[TRAE CLI 2.0](docs/agent-hosts.zh-CN.md#host-trae-cli)、Qoder 国内版 IDE、[Qoder 桌面](docs/agent-hosts.zh-CN.md#host-qoder) 和 [Qoder 国内版 CLI](docs/agent-hosts.zh-CN.md#host-qoder-cli)。这一组的验收通过 MCP SDK 完成。
+
+**提供配置预设，已核对宿主格式**
+
+[![Cursor](docs/agents/cursor.svg)](docs/agent-hosts.zh-CN.md#host-cursor)
+[![Claude Desktop](docs/agents/claude-desktop.svg)](docs/agent-hosts.zh-CN.md#host-claude-desktop)
+[![VS Code + Copilot](docs/agents/vscode.svg)](docs/agent-hosts.zh-CN.md#host-vscode)
+[![GitHub Copilot CLI](docs/agents/copilot-cli.svg)](docs/agent-hosts.zh-CN.md#host-copilot-cli)
+[![Gemini CLI](docs/agents/gemini.svg)](docs/agent-hosts.zh-CN.md#host-gemini)
+[![OpenCode](docs/agents/opencode.svg)](docs/agent-hosts.zh-CN.md#host-opencode)
+[![Zed](docs/agents/zed.svg)](docs/agent-hosts.zh-CN.md#host-zed)
+
+其他支持本地 MCP stdio 或 Streamable HTTP 的 Agent 也可以接入。[全部配置、版本和验收记录](docs/agent-hosts.zh-CN.md)
+
+## 论文原图与 Agent 图稿
 
 [![钯催化偶联循环。左侧为 Fiebor 等人的论文原图，右侧为 Agent 依据反应数据绘制、并嵌入分子结构的版本。](docs/images/chem-canvas-showcase.png)](https://jiaodu1307.github.io/chem-canvas/fiebor-scheme2.html#from-data)
 

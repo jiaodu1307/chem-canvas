@@ -1,5 +1,7 @@
 # 让 Agent 安装 Chem Canvas
 
+**简体中文** · [English](install-agent.en.md)
+
 将下面整段发给能在本机运行命令的编程 Agent。已有源码的用户也可以直接在本地使用这段提示词。
 
 ```text
@@ -26,7 +28,7 @@
 | Qoder 桌面应用，设置中有 Connectors | `node scripts/plugin-config.js --host qoder --profile figure-chemistry --install-user` | 在 Connectors 中确认 `chem-canvas`。使用传统国际版 Qoder IDE 时，从 Settings → MCP → My Servers → Add 打开实际 JSON，再用 `--install-file "<配置文件>"`。 |
 | Cursor / VS Code / Claude Code / Gemini CLI | `node scripts/plugin-config.js --host <宿主> --profile figure-chemistry --install-project "<工作区>"` | `<宿主>` 分别填 `cursor`、`vscode`、`claude-code`、`gemini`。在该工作区重新加载 MCP。 |
 
-Codex、其他 JSON 客户端和 Streamable HTTP 的对应步骤见[宿主接入指南](agent-hosts.zh-CN.md)。使用 Codex 时，可用仓库 README 中的原生插件安装方式，或将 `--host codex --profile figure-chemistry` 输出的两个 TOML 表合并到当前配置中；复用已有连接即可。[Codex 插件安装](../README.md#接入-agent)
+Codex、其他 JSON 客户端和 Streamable HTTP 的对应步骤见[宿主接入指南](agent-hosts.zh-CN.md)。使用 Codex 时，可用仓库 README 中的原生插件安装方式，或将 `--host codex --profile figure-chemistry` 输出的两个 TOML 表合并到当前配置中；复用已有连接即可。[Codex 插件安装](../README.md)
 
 旧版 Python `kimi-cli` 使用不同的配置目录。若 `kimi --help` 列出 `mcp` 子命令，且确定安装的是旧版，可用 `--host kimi --profile figure-chemistry --install-file "<旧版用户配置目录>/mcp.json"`，配置目录以该版本帮助为准；用 `kimi mcp list` 核对。[旧版 MCP 指南](https://github.com/MoonshotAI/kimi-cli/blob/main/docs/en/customization/mcp.md)
 

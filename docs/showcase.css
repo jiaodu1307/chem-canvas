@@ -133,7 +133,7 @@
 }
 @media (max-width: 460px) {
   .site-links a { font-size: .78rem; }
-  .site-links a[href="#featured"] { display: none; }
+  .site-links a[href="#featured"], .site-links a[href="#catalog"] { display: none; }
   .site-links .github-link { padding-inline: 10px; }
   .hero-grid { padding-top: 25px; }
   .cover-counts div { padding-right: 11px; }

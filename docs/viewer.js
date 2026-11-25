@@ -21,6 +21,13 @@ export function imageRectangle(a,b) {
   return width && height ? {x:Math.min(a.x,b.x),y:Math.min(a.y,b.y),width,height} : null;
 }
 
+function t(zh,en){
+  return document.documentElement.lang==='en'?en:zh;
+}
+function syncLanguageLink(){
+  const link=document.querySelector('[data-language]');
+  if(link)link.hash=location.hash;
+}
 function setupCatalog(catalog) {
   const search=catalog.querySelector('[data-query]'), links=[...catalog.querySelectorAll('[data-case-link]')];
   const filters=[...catalog.querySelectorAll('[data-filter]')];
@@ -39,7 +46,8 @@ function setupCatalog(catalog) {
       if(link.dataset.filter===active)link.setAttribute('aria-current','true');
       else link.removeAttribute('aria-current');
     }
-    catalog.querySelector('[data-found]').textContent=query.length ? count?'找到 '+count+' 个案例':'没有找到匹配的案例。试试作者姓氏或图表类型。' :'';
+    catalog.querySelector('[data-found]').textContent=query.length ? count?t('找到 '+count+' 个案例',count+(count===1?' case found':' cases found')):t('没有找到匹配的案例。试试作者姓氏或图表类型。','No matches. Try an author’s surname or a figure type.') :'';
+    syncLanguageLink();
   }
   for(const link of filters)link.addEventListener('click',event=>{
     if(event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)return;
@@ -69,11 +77,11 @@ function setup(group) {
     status.textContent=''; manual.hidden=true; manual.value='';
   }
   function showFeedback() {
-    place.textContent=area?'已框选区域':point?`左起 ${+(100*point.x).toFixed(1)}% · 上起 ${+(100*point.y).toFixed(1)}%`:'整张图';
+    place.textContent=area?t('已框选区域','Area selected'):point?t('左起 ','From left ')+(100*point.x).toFixed(1)+'% · '+t('上起 ','from top ')+(100*point.y).toFixed(1)+'%':t('整张图','Whole figure');
     pick.setAttribute('aria-pressed',String(picking==='point'));
-    pick.textContent=picking==='point'?'取消点选':point?'重选位置':'点选位置';
+    pick.textContent=picking==='point'?t('取消点选','Cancel point'):point?t('重选位置','Change point'):t('点选位置','Pick a point');
     rectButton.setAttribute('aria-pressed',String(picking==='rect'));
-    rectButton.textContent=picking==='rect'?'取消框选':area?'重新框选':'框选区域';
+    rectButton.textContent=picking==='rect'?t('取消框选','Cancel selection'):area?t('重新框选','Change area'):t('框选区域','Select an area');
     whole.hidden=!point && !area;
     copy.disabled=!!picking || !note.value.trim();
     stage.classList.toggle('picking',!!picking);
@@ -108,34 +116,34 @@ function setup(group) {
     const asset=new URL(file,document.baseURI);
     const source=['http:','https:'].includes(asset.protocol)?asset.href:file;
     return [
-      'Chem Canvas 绘图反馈 · '+document.querySelector('h1').textContent+' ('+group.dataset.case+')',
-      '路线：'+group.querySelector('h2').textContent+' / '+version.textContent,
-      '图稿：'+(isPaper?'论文原图':'成图')+' · '+version.dataset.anchor,
-      '图片：'+source,
-      area?'区域：'+Object.entries(area).map(([k,v])=>k+'='+v.toFixed(4)).join(', ')+
-        '（整图左上角为原点，右下角 x='+(area.x+area.width).toFixed(4)+', y='+(area.y+area.height).toFixed(4)+'）':
-        point?`位置：x=${point.x.toFixed(4)}, y=${point.y.toFixed(4)}（左上角为 0,0；右下角为 1,1）`:'位置：整张图',
-      '修改意见：'+note.value.trim(),
+      t('Chem Canvas 绘图反馈 · ','Chem Canvas figure feedback · ')+document.querySelector('h1').textContent+' ('+group.dataset.case+')',
+      t('路线：','Protocol: ')+group.querySelector('h2').textContent+' / '+version.textContent,
+      t('图稿：','Version: ')+(isPaper?t('论文原图','Paper figure'):t('成图','Agent drawing'))+' · '+version.dataset.anchor,
+      t('图片：','Image: ')+source,
+      area?t('区域：','Area: ')+Object.entries(area).map(([k,v])=>k+'='+v.toFixed(4)).join(', ')+
+        t('（整图左上角为原点，右下角 x=',' (origin at top left, bottom right x=')+(area.x+area.width).toFixed(4)+', y='+(area.y+area.height).toFixed(4)+t('）',')'):
+        point?t('位置：','Point: ')+`x=${point.x.toFixed(4)}, y=${point.y.toFixed(4)}`+t('（左上角为 0,0；右下角为 1,1）',' (top left 0,0; bottom right 1,1)'):t('位置：整张图','Area: whole figure'),
+      t('修改意见：','Revision: ')+note.value.trim(),
     ].join('\n');
   }
   function choosePoint(x,y) {
     const chosen=imagePoint(layout,x,y);
-    if(!chosen){status.textContent='请点在图片内。';return;}
+    if(!chosen){status.textContent=t('请点在图片内。','Choose a point inside the image.');return;}
     point=chosen;area=null;picking=null;clearMessage();showFeedback();
   }
   function startPick(mode) {
     picking=picking===mode?null:mode;corner=null;cursor=null;clearMessage();showFeedback();
     if(picking){
-      status.textContent=mode==='rect'?'拖出矩形或轻点两个对角。键盘可用方向键移动，按 Enter 确认角点。':'轻点图片，或按 Enter 标记视图中心。';
+      status.textContent=mode==='rect'?t('拖出矩形或轻点两个对角。键盘可用方向键移动，按 Enter 确认角点。','Drag a rectangle or tap its opposite corners. Use arrow keys to move and Enter to confirm a corner.'):t('轻点图片，或按 Enter 标记视图中心。','Tap the image or press Enter to mark the center.');
       stage.focus({preventScroll:true}); stage.scrollIntoView({block:'center'});
     }
   }
   function chooseCorner(p) {
-    if(!p){status.textContent='请点在图片内。';return;}
-    if(!corner){corner=p;cursor=p;status.textContent='已选第一个角，请选另一个对角。';}
+    if(!p){status.textContent=t('请点在图片内。','Choose a point inside the image.');return;}
+    if(!corner){corner=p;cursor=p;status.textContent=t('已选第一个角，请选另一个对角。','First corner set. Select the opposite corner.');}
     else{
       const rect=imageRectangle(corner,p);
-      if(!rect){status.textContent='请选一个能构成矩形的对角。';return;}
+      if(!rect){status.textContent=t('请选一个能构成矩形的对角。','Choose an opposite corner to form a rectangle.');return;}
       area=rect;point=null;corner=null;cursor=null;picking=null;clearMessage();
     }
     showFeedback();
@@ -151,11 +159,11 @@ function setup(group) {
     const current=()=>panel.open && key===targetKey && text===requestText();
     try{
       await navigator.clipboard.writeText(text);
-      if(current()){clearMessage();status.textContent='已复制，可粘贴到 Agent 对话。';}
+      if(current()){clearMessage();status.textContent=t('已复制，可粘贴到 Agent 对话。','Copied. Paste the note into your agent chat.');}
     }catch{
       if(!current())return;
       manual.value=text;manual.hidden=false;manual.focus();manual.select();
-      status.textContent='请手动复制下方文字。';
+      status.textContent=t('请手动复制下方文字。','Copy the text below.');
     }
   });
   function paint() {
@@ -168,12 +176,12 @@ function setup(group) {
     switchFeedback(version.dataset.anchor+'|'+(isPaper?'paper':'drawing')+'|'+data.src);
     showFeedback();
     if(image.getAttribute('src')!==data.src)image.src=data.src;
-    image.alt=isPaper?'论文原图':version.textContent;
+    image.alt=isPaper?t('论文原图','Paper figure'):version.textContent;
     image.style.width=layout.width+'px';
     image.style.height=layout.height+'px';
     image.style.transform='translate('+layout.left+'px,'+layout.top+'px)';
     fullSize.href=data.src;
-    fullSize.setAttribute('aria-label','查看大图 · '+image.alt);
+    fullSize.setAttribute('aria-label',t('查看大图 · ','Full-size image · ')+image.alt);
     stage.classList.toggle('zoomed',zoom>1);
     paper?.setAttribute('aria-pressed',String(isPaper));
     if(routeButtons.length)for(const btn of routeButtons){
@@ -214,11 +222,13 @@ function setup(group) {
       const method=button.dataset.route;
       selectVersion(lastVersion.get(method)??options.find(o=>o.dataset.method===method));
       history.replaceState(null,'',permalink.hash);
+      syncLanguageLink();
     });
   }
   picker.addEventListener('change',()=>{
     selectVersion();
     history.replaceState(null,'',permalink.hash);
+    syncLanguageLink();
   });
   window.addEventListener('hashchange',openLinkedVersion);
   zoomSelect.addEventListener('change',()=>{
@@ -250,7 +260,7 @@ function setup(group) {
   stage.addEventListener('pointerup',event=>{
     if(!drag || drag.id!==event.pointerId)return;
     if(picking==='rect'){
-      if(drag.moved && !drag.origin)status.textContent='请从图片内开始框选。';
+      if(drag.moved && !drag.origin)status.textContent=t('请从图片内开始框选。','Start the selection inside the image.');
       else chooseCorner(eventPoint(event,drag.moved));
     }else if(picking && !drag.moved && Math.hypot(event.clientX-drag.startX,event.clientY-drag.startY)<=5){
       const rect=stage.getBoundingClientRect();
@@ -290,6 +300,8 @@ function setup(group) {
   openLinkedVersion();
 }
 if(typeof document!=='undefined'){
+  syncLanguageLink();
+  window.addEventListener('hashchange',syncLanguageLink);
   document.querySelectorAll('[data-comparison]').forEach(setup);
   document.querySelectorAll('[data-catalog]').forEach(setupCatalog);
 }

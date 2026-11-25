@@ -16,4 +16,6 @@ Chem Canvas installs the following direct dependencies from the npm registry. Ve
 
 The source edition installs dependencies with `npm ci`. For a distribution that bundles dependencies or native binaries, also review the license and notice files in those packages.
 
+The README client badges include artwork from Lobe Icons. Product names and trademarks belong to their respective owners. [Icon sources and MIT license](https://github.com/jiaodu1307/chem-canvas/blob/main/docs/agents/NOTICES.md)
+
 The source edition's literature catalogue provides bibliographic records, individual figure/table identifiers and links to the publishers and their license terms. The example opened in the SVG workbench is a synthetic layout exercise. Paper artwork and measurement data retain their own provenance. A license chosen for the Chem Canvas source code covers the project's own contributions.
