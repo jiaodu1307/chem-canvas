@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SVG 图稿 · Chem Canvas</title>
+  <link rel="stylesheet" href="/figure.css">
+</head>
+<body>
+  <header><nav><a href="/" data-project>Chem Canvas</a><a href="/publication.html" data-project>结构化期刊图表</a><a href="/publication-benchmark.html" data-project>绘图评测</a></nav></header>
+  <main>
+    <div class="heading"><div><h1>SVG 图稿</h1><p id="state" role="status">正在读取项目…</p></div>
+      <div class="actions"><button id="reload" type="button">重新读取</button><button id="preview" type="button" disabled>预览</button><button id="save" type="button" disabled>保存图稿</button><button id="download" type="button" disabled>下载 SVG</button></div>
+    </div>
+    <div class="workspace">
+      <section class="editor"><label for="source">SVG 源码</label>
+        <textarea id="source" spellcheck="false" autocapitalize="off" placeholder='&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500"&gt;…&lt;/svg&gt;' disabled></textarea>
+        <details><summary>嵌入项目分子</summary>
+          <p>将分子 ID 和图中位置填入一个空 SVG 元素。需要期刊缩写时，可添加 <code>data-abbreviations="journal"</code>。</p>
+          <code class="example">&lt;svg data-molecule-id="ID" x="20" y="20" width="140" height="90"/&gt;</code>
+          <ul id="molecules"></ul>
+        </details>
+      </section>
+      <section class="proof"><h2>预览</h2>
+        <div class="sheet"><p id="empty">粘贴 SVG 后点击预览。</p><div id="paper" hidden><img id="artwork" hidden alt="图稿预览"><button id="pick-point" type="button" disabled aria-label="选择批注位置，方向键移动，回车填写意见"></button><div id="pins"></div></div></div>
+        <section class="review" aria-labelledby="review-heading">
+          <h2 id="review-heading">给 Agent 的批注</h2>
+          <button id="review-region" type="button" aria-pressed="false" disabled>框选区域</button>
+          <p id="review-context">保存图稿后可添加批注。</p>
+          <form id="review-form">
+            <label class="sr-only" for="review-text">修改意见</label>
+            <textarea id="review-text" rows="2" maxlength="1000" placeholder="写下希望怎样修改…"></textarea>
+            <div class="actions"><button id="review-add" type="submit" disabled>保存批注</button><button id="review-reset" type="button" hidden>清除位置</button></div>
+          </form>
+          <ol id="reviews"></ol>
+          <button type="button" id="review-copy" hidden>复制给 Agent 的改图请求</button>
+          <textarea id="review-request" rows="3" readonly hidden aria-label="复制这段请求到 Agent 对话"></textarea>
+          <p id="review-status" role="status"></p>
+        </section>
+        <p id="evidence"></p></section>
+    </div>
+  </main>
+  <script type="module" src="/figure.js"></script>
+</body>
+</html>

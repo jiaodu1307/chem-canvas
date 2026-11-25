@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="645" viewBox="0 0 960 645" role="img" aria-labelledby="figure-title figure-desc">
+  <title id="figure-title">Asymmetric dioxytosylation of three styrenes with chiral iodine(III) reagent 4e</title>
+  <desc id="figure-desc">Each row shows a styrene and the two alternative products of its reaction. The solid wedge shows the S major enantiomer of 3a. Wavy bonds indicate undetermined absolute configuration in 3b and 3c. The rearranged geminal ditosylates are achiral.</desc>
+  <rect width="960" height="645" fill="white"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#18232b">
+    <text x="30" y="35" font-size="27" font-weight="700">Asymmetric dioxytosylation of styrenes</text>
+    <text x="31" y="62" font-size="16">Chiral 2,6-bis(lactate)aryl iodine(III) reagent <tspan font-weight="700">4e</tspan> (47 mM), styrene derivative (43 mM)</text>
+    <text x="31" y="84" font-size="16"><tspan font-style="italic">p</tspan>-Toluenesulfonic acid monohydrate (86 mM), dichloromethane, −50 °C</text>
+    <line x1="30" y1="99" x2="930" y2="99" stroke="#71818a"/>
+    <g font-size="16" font-weight="700" fill="#285c63">
+      <text x="31" y="123">Styrene</text>
+      <text x="382" y="123">Vicinal ditosylate</text>
+      <text x="712" y="123">Rearranged geminal ditosylate</text>
+    </g>
+
+    <g id="reaction-a" transform="translate(0 168)">
+      <g id="substrate-1a" transform="translate(65 0)" fill="none" stroke="#18232b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M12 0 L26 -24.25 H54 L68 0 L54 24.25 H26 Z"/>
+        <path d="M29 -19.5 H51 M62.5 0 L51.2 19.5 M28.8 19.5 L17.5 0"/>
+        <path d="M68 0 L96 -16.2 L124 0 M96 -10.7 L121.6 4.1"/>
+      </g>
+      <g id="arrow-a">
+        <text x="291" y="-14" text-anchor="middle" font-size="16">4 h</text>
+        <line x1="233" y1="0" x2="343" y2="0" stroke="#18232b" stroke-width="1.8"/>
+        <polygon points="351,0 339,-4.2 341,0 339,4.2" fill="#18232b"/>
+      </g>
+      <g id="product-3a" transform="translate(397 0)">
+        <g fill="none" stroke="#18232b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M12 0 L26 -24.25 H54 L68 0 L54 24.25 H26 Z"/>
+          <path d="M29 -19.5 H51 M62.5 0 L51.2 19.5 M28.8 19.5 L17.5 0"/>
+          <path d="M68 0 L96 16.2 L124 0 L144 11.55"/>
+        </g>
+        <polygon points="96,16.2 99.9,41 92.1,41" fill="#18232b"/>
+        <text x="89" y="59" font-size="18">OTs</text>
+        <text x="146" y="21" font-size="18">OTs</text>
+      </g>
+      <text x="653" y="6" text-anchor="middle" font-size="16" font-style="italic" fill="#52616a">or</text>
+      <g id="product-5a" transform="translate(742 0)">
+        <g fill="none" stroke="#18232b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M12 0 L26 -24.25 H54 L68 0 L54 24.25 H26 Z"/>
+          <path d="M29 -19.5 H51 M62.5 0 L51.2 19.5 M28.8 19.5 L17.5 0"/>
+          <path d="M68 0 L96 16.2 L124 0 L144 11.55 M124 0 V-21"/>
+        </g>
+        <text x="117" y="-25" font-size="18">OTs</text>
+        <text x="146" y="21" font-size="18">OTs</text>
+      </g>
+      <g font-size="16">
+        <text x="31" y="80"><tspan font-weight="700">1a</tspan><tspan dx="9">Styrene</tspan></text>
+        <text x="382" y="80"><tspan font-weight="700">3a</tspan><tspan dx="9">80% NMR yield</tspan></text>
+        <text x="382" y="101" font-size="15">92% ee, <tspan font-style="italic">S</tspan> major</text>
+        <text x="712" y="80"><tspan font-weight="700">5a</tspan><tspan dx="9">20% NMR yield</tspan></text>
+      </g>
+    </g>
+
+    <line x1="30" y1="274" x2="930" y2="274" stroke="#c8d0d3"/>
+    <g id="reaction-b" transform="translate(0 316)">
+      <g id="substrate-1b" transform="translate(65 0)">
+        <g fill="none" stroke="#18232b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M12 0 L26 -24.25 H54 L68 0 L54 24.25 H26 Z"/>
+          <path d="M29 -19.5 H51 M62.5 0 L51.2 19.5 M28.8 19.5 L17.5 0"/>
+          <path d="M68 0 L96 -16.2 L124 0 M96 -10.7 L121.6 4.1 M12 0 H-8"/>
+        </g>
+        <text x="-11" y="6" text-anchor="end" font-size="18">Cl</text>
+      </g>
+      <g id="arrow-b">
+        <text x="291" y="-14" text-anchor="middle" font-size="16">20 h</text>
+        <line x1="233" y1="0" x2="343" y2="0" stroke="#18232b" stroke-width="1.8"/>
+        <polygon points="351,0 339,-4.2 341,0 339,4.2" fill="#18232b"/>
+      </g>
+      <g id="product-3b" transform="translate(397 0)">
+        <g fill="none" stroke="#18232b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M12 0 L26 -24.25 H54 L68 0 L54 24.25 H26 Z"/>
+          <path d="M29 -19.5 H51 M62.5 0 L51.2 19.5 M28.8 19.5 L17.5 0"/>
+          <path d="M12 0 H-8 M68 0 L96 16.2 L124 0 L144 11.55"/>
+          <path d="M96 16.2 Q100 18.3 96 20.4 T96 24.6 T96 28.8 T96 33 T96 37.2 T96 41.4"/>
+        </g>
+        <text x="-11" y="6" text-anchor="end" font-size="18">Cl</text>
+        <text x="89" y="59" font-size="18">OTs</text>
+        <text x="146" y="21" font-size="18">OTs</text>
+      </g>
+      <text x="653" y="6" text-anchor="middle" font-size="16" font-style="italic" fill="#52616a">or</text>
+      <g id="product-5b" transform="translate(742 0)">
+        <g fill="none" stroke="#18232b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M12 0 L26 -24.25 H54 L68 0 L54 24.25 H26 Z"/>
+          <path d="M29 -19.5 H51 M62.5 0 L51.2 19.5 M28.8 19.5 L17.5 0"/>
+          <path d="M12 0 H-8 M68 0 L96 16.2 L124 0 L144 11.55 M124 0 V-21"/>
+        </g>
+        <text x="-11" y="6" text-anchor="end" font-size="18">Cl</text>
+        <text x="117" y="-25" font-size="18">OTs</text>
+        <text x="146" y="21" font-size="18">OTs</text>
+      </g>
+      <g font-size="16">
+        <text x="31" y="80"><tspan font-weight="700">1b</tspan><tspan dx="9">4-Chlorostyrene</tspan></text>
+        <text x="382" y="80"><tspan font-weight="700">3b</tspan><tspan dx="9">79% NMR yield</tspan></text>
+        <text x="382" y="101" font-size="15">90% ee, absolute configuration undetermined</text>
+        <text x="712" y="80"><tspan font-weight="700">5b</tspan><tspan dx="9">5% NMR yield</tspan></text>
+      </g>
+    </g>
+
+    <line x1="30" y1="422" x2="930" y2="422" stroke="#c8d0d3"/>
+    <g id="reaction-c" transform="translate(0 464)">
+      <g id="substrate-1c" transform="translate(65 0)" fill="none" stroke="#18232b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M12 0 L26 -24.25 H54 L68 0 L54 24.25 H26 Z"/>
+        <path d="M29 -19.5 H51 M62.5 0 L51.2 19.5 M28.8 19.5 L17.5 0"/>
+        <path d="M68 0 L96 -16.2 L124 0 M96 -10.7 L121.6 4.1 M54 24.25 L68 48.5"/>
+      </g>
+      <g id="arrow-c">
+        <text x="291" y="-14" text-anchor="middle" font-size="16">4 h</text>
+        <line x1="233" y1="0" x2="343" y2="0" stroke="#18232b" stroke-width="1.8"/>
+        <polygon points="351,0 339,-4.2 341,0 339,4.2" fill="#18232b"/>
+      </g>
+      <g id="product-3c" transform="translate(397 0)">
+        <g fill="none" stroke="#18232b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M12 0 L26 -24.25 H54 L68 0 L54 24.25 H26 Z"/>
+          <path d="M29 -19.5 H51 M62.5 0 L51.2 19.5 M28.8 19.5 L17.5 0"/>
+          <path d="M54 24.25 L68 48.5 M68 0 L96 16.2 L124 0 L144 11.55"/>
+          <path d="M96 16.2 Q100 18.3 96 20.4 T96 24.6 T96 28.8 T96 33 T96 37.2 T96 41.4"/>
+        </g>
+        <text x="89" y="59" font-size="18">OTs</text>
+        <text x="146" y="21" font-size="18">OTs</text>
+      </g>
+      <text x="653" y="6" text-anchor="middle" font-size="16" font-style="italic" fill="#52616a">or</text>
+      <g id="product-5c" transform="translate(742 0)">
+        <g fill="none" stroke="#18232b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M12 0 L26 -24.25 H54 L68 0 L54 24.25 H26 Z"/>
+          <path d="M29 -19.5 H51 M62.5 0 L51.2 19.5 M28.8 19.5 L17.5 0"/>
+          <path d="M54 24.25 L68 48.5 M68 0 L96 16.2 L124 0 L144 11.55 M124 0 V-21"/>
+        </g>
+        <text x="117" y="-25" font-size="18">OTs</text>
+        <text x="146" y="21" font-size="18">OTs</text>
+      </g>
+      <g font-size="16">
+        <text x="31" y="80"><tspan font-weight="700">1c</tspan><tspan dx="9">2-Methylstyrene</tspan></text>
+        <text x="382" y="80"><tspan font-weight="700">3c</tspan><tspan dx="9">10% NMR yield</tspan></text>
+        <text x="382" y="101" font-size="15">96% ee, absolute configuration undetermined</text>
+        <text x="712" y="80"><tspan font-weight="700">5c</tspan><tspan dx="9">35% NMR yield</tspan></text>
+      </g>
+    </g>
+
+    <line x1="30" y1="582" x2="930" y2="582" stroke="#71818a"/>
+    <g font-size="15" fill="#34464e">
+      <text x="31" y="606">Yields measured by ¹H NMR with an internal standard. Enantiomeric excess (ee) of <tspan font-weight="700">3</tspan> measured by chiral HPLC.</text>
+      <text x="31" y="628">Ts = 4-methylbenzenesulfonyl. The geminal ditosylates <tspan font-weight="700">5a–c</tspan> are achiral.</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,56 @@
+* { box-sizing:border-box }
+:root { color:#172e29; background:#f6f8f5; font:15px/1.5 Inter,"Microsoft YaHei","Segoe UI",sans-serif }
+body,h1,h2,p { margin:0 }
+header { background:#fff; border-bottom:1px solid #cfd9d2 }
+nav,main { width:min(1530px,100%); margin:auto; padding:0 clamp(16px,4vw,60px) }
+nav,.heading,.actions { display:flex; align-items:center; flex-wrap:wrap; gap:10px }
+nav { min-height:55px; gap:24px }
+nav a { color:#235749; text-underline-offset:4px }
+nav a:first-child { font-size:18px; font-weight:700; margin-right:auto; text-decoration:none }
+.heading { justify-content:space-between; padding:28px 0 20px }
+h1 { font-size:clamp(26px,3.5vw,37px); letter-spacing:-.035em; line-height:1.2 }
+#state,#evidence { color:#4d675f; margin-top:7px }
+button { font:inherit; border:1px solid #abbbb1; border-radius:5px; padding:7px 13px; background:white; color:#23483c; cursor:pointer }
+button:disabled { opacity:.5; cursor:default }
+#save { background:#216348; color:white; border-color:#216348 }
+.workspace { display:grid; grid-template-columns:minmax(270px,.85fr) minmax(0,1.22fr); gap:16px; padding-bottom:36px }
+section { border:1px solid #cbd6ce; border-radius:8px; padding:18px; background:#fff; min-width:0 }
+h2,label { font-size:17px; font-weight:650 }
+textarea { width:100%; min-height:460px; resize:vertical; margin:12px 0 8px; padding:12px; border:1px solid #b9c8be; font:13px/1.55 "IBM Plex Mono",Consolas,monospace; color:#23382e; border-radius:4px }
+.sheet { min-height:460px; margin-top:12px; display:grid; grid-template-columns:minmax(0,1fr); place-items:center; border:1px solid #d9e0db; background:#fff; overflow:auto }
+#artwork { max-width:100%; height:auto; display:block }
+#artwork[hidden],#empty[hidden] { display:none }
+#paper { position:relative; width:fit-content; max-width:100%; min-width:0 }
+#paper[hidden],#review-reset[hidden] { display:none }
+#paper.can-pin { cursor:crosshair }
+#pick-point { position:absolute; inset:0; width:100%; height:100%; padding:0; border:0; background:transparent; cursor:crosshair }
+#pick-point:disabled { pointer-events:none }
+#pick-point:focus-visible { outline:2px solid #216348; outline-offset:-2px }
+#pins { position:absolute; inset:0; pointer-events:none; overflow:hidden }
+#paper.selecting-region #pick-point { touch-action:none }
+#paper.selecting-region .pin { pointer-events:none }
+.region-box { position:absolute; pointer-events:none; border:2px solid #216348; background:rgb(33 99 72 / 10%) }
+.region-box.draft { border:2px dashed #9c4a16; background:rgb(156 74 22 / 9%) }
+#review-region { margin:7px 0; font-size:14px }
+#review-region[aria-pressed=true] { background:#e4f0e9; border-color:#216348 }
+.pin { position:absolute; transform:translate(-50%,-50%); border-radius:50%; padding:0; width:23px; height:23px; line-height:18px; text-align:center; font-size:12px; font-weight:bold; background:#1e614b; color:white; border:2px solid white; box-shadow:0 0 0 1px #245542; pointer-events:auto }
+.pin.draft { background:#9c4a16; pointer-events:none }
+.review { padding:16px 0 0; border:0; border-radius:0; margin:16px 0; border-top:1px solid #cbd6ce }
+#review-text { min-height:54px; margin:8px 0 4px; font:inherit }
+#review-request { min-height:64px; font:inherit }
+#review-context,#review-status { color:#4d675f; font-size:14px }
+#review-status:empty,#reviews:empty { display:none }
+#reviews { padding-left:24px; margin:10px 0; overflow-wrap:anywhere }
+#reviews li { padding:5px 0 }
+#reviews p { white-space:pre-wrap }
+#reviews small { color:#4d675f }
+#reviews button { padding:2px 8px; margin-left:8px; font-size:13px }
+.sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%) }
+#empty { color:#6b7971 }
+details { margin-top:8px }
+summary { cursor:pointer; font-weight:600 }
+details p,.example { display:block; margin:8px 0 }
+code { font:13px/1.5 Consolas,monospace; overflow-wrap:anywhere }
+ul { padding-left:20px; max-height:200px; overflow:auto }
+@media (max-width:780px) { .workspace{grid-template-columns:1fr} textarea,.sheet{min-height:240px} nav{gap:12px} }
+@media (max-width:780px) { .proof { grid-row:1 } }

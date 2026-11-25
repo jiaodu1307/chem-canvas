@@ -1,0 +1,16 @@
+{
+  "name": "chem-canvas",
+  "version": "0.1.6",
+  "description": "Author SVG figures and collaborate on a local molecular research canvas.",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Chem Canvas",
+    "shortDescription": "绘制期刊 SVG，嵌入可核验分子，协作编辑化学画布",
+    "longDescription": "Draw publication figures directly in SVG, reuse saved chemical structures, and inspect or edit the shared research canvas.",
+    "developerName": "Chem Canvas project",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": ["用 Chem Canvas 根据提供的期刊原图绘制可编辑 SVG。", "读取 Chem Canvas 当前画布和选区，解释我刚才的结构修改。"]
+  }
+}

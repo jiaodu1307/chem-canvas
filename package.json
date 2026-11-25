@@ -1,0 +1,29 @@
+{
+  "name": "chem-canvas",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local shared chemistry canvas for humans and host agents",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "test": "node --test",
+    "mcp": "node server/mcp.js",
+    "plugin:config": "node scripts/plugin-config.js",
+    "plugin:doctor": "node scripts/plugin-doctor.js",
+    "plugin:mcp": "node server/plugin.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "@rdkit/rdkit": "2026.9.2",
+    "@resvg/resvg-js": "2.6.2",
+    "ajv": "8.20.0",
+    "fflate": "0.8.3",
+    "pdfkit": "0.21.0",
+    "saxes": "6.0.0",
+    "svg-to-pdfkit": "0.1.8"
+  }
+}

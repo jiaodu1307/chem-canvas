@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="85mm" height="146.39mm" viewBox="0 0 360 620" font-family="Arial, Helvetica, sans-serif" fill="#18282e">
+<title>Aerobic batch oxidation of 4-methoxybenzyl alcohol</title>
+<desc>Batch time courses for series 5 and 6. Aldehyde 2a is the oxidation product. Acid 3a is a monitored byproduct.</desc>
+<rect width="360" height="620" fill="white"/>
+<g font-size="16.5" font-weight="bold">
+  <text x="6" y="20">Aerobic batch oxidation</text>
+  <text x="6" y="39">of 4-methoxybenzyl alcohol</text>
+</g>
+<line x1="6" y1="48" x2="354" y2="48" stroke="#91a1a5"/>
+<g id="alcohol-1a" transform="translate(54 82) scale(.49)">
+    <g fill="none" stroke="#18282e" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+      <polygon points="-36,0 -18,-31 18,-31 36,0 18,31 -18,31"/>
+      <line x1="-14.5" y1="-25.5" x2="14.5" y2="-25.5"/>
+      <line x1="29.5" y1="0" x2="15" y2="25"/>
+      <line x1="-15" y1="25" x2="-29.5" y2="0"/>
+      <line x1="-36" y1="0" x2="-61" y2="0"/>
+      <line x1="-78" y1="-5" x2="-98" y2="-19"/>
+      <polyline points="36,0 64,-16 86,-3"/>
+    </g>
+    <g font-size="21">
+      <text x="-70" y="7" text-anchor="middle">O</text>
+      <text x="88" y="7">OH</text>
+    </g><!--end-molecule--></g>
+<g id="aldehyde-2a" transform="translate(185 82) scale(.49)">
+    <g fill="none" stroke="#18282e" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+      <polygon points="-36,0 -18,-31 18,-31 36,0 18,31 -18,31"/>
+      <line x1="-14.5" y1="-25.5" x2="14.5" y2="-25.5"/>
+      <line x1="29.5" y1="0" x2="15" y2="25"/>
+      <line x1="-15" y1="25" x2="-29.5" y2="0"/>
+      <line x1="-36" y1="0" x2="-61" y2="0"/>
+      <line x1="-78" y1="-5" x2="-98" y2="-19"/>
+      <polyline points="36,0 64,-16 64,-39"/>
+      <line x1="59" y1="-19" x2="59" y2="-39"/>
+      <line x1="64" y1="-16" x2="84" y2="-4.5"/>
+    </g>
+    <g font-size="21">
+      <text x="-70" y="7" text-anchor="middle">O</text>
+      <text x="61.5" y="-43" text-anchor="middle">O</text>
+      <text x="86" y="7">H</text>
+    </g><!--end-molecule--></g>
+<g id="acid-3a" transform="translate(299 82) scale(.49)">
+    <g fill="none" stroke="#18282e" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+      <polygon points="-36,0 -18,-31 18,-31 36,0 18,31 -18,31"/>
+      <line x1="-14.5" y1="-25.5" x2="14.5" y2="-25.5"/>
+      <line x1="29.5" y1="0" x2="15" y2="25"/>
+      <line x1="-15" y1="25" x2="-29.5" y2="0"/>
+      <line x1="-36" y1="0" x2="-61" y2="0"/>
+      <line x1="-78" y1="-5" x2="-98" y2="-19"/>
+      <polyline points="36,0 64,-16 64,-39"/>
+      <line x1="59" y1="-19" x2="59" y2="-39"/>
+      <line x1="64" y1="-16" x2="86" y2="-3"/>
+    </g>
+    <g font-size="21">
+      <text x="-70" y="7" text-anchor="middle">O</text>
+      <text x="61.5" y="-43" text-anchor="middle">O</text>
+      <text x="88" y="7">OH</text>
+    </g><!--end-molecule--></g>
+<path d="M115 82H130" fill="none" stroke="#18282e" stroke-width="1.4"/>
+<path d="M127.5 78.9L134 82L127.5 85.1Z"/>
+<text x="243" y="86" font-size="14" text-anchor="middle">+</text>
+<g text-anchor="middle" font-size="12" font-weight="bold">
+  <text x="55" y="111">1a</text><text x="185" y="111">2a</text><text x="299" y="111">3a</text>
+</g>
+<g text-anchor="middle" font-size="11">
+  <text x="55" y="127">Alcohol</text><text x="185" y="127">Aldehyde</text><text x="299" y="127">Acid byproduct</text>
+</g>
+<line x1="6" y1="139" x2="354" y2="139" stroke="#91a1a5"/>
+<g font-size="12">
+  <text x="6" y="158">Batch charge: 2.5 mmol of 1a under an O₂ balloon.</text>
+  <text x="6" y="175">Fe(NO₃)₃·9H₂O and TEMPO, 0.02 equiv each.</text>
+  <text x="6" y="192">Acetic acid: 3 mL per gram of 1a.</text>
+</g>
+<text x="6" y="219" font-size="15" font-weight="bold">Batch time courses</text>
+<rect x="6" y="228" width="348" height="43" fill="#edf2f1"/>
+<g text-anchor="middle" font-size="11.5" font-weight="bold">
+  <text x="32" y="246">Time</text><text x="32" y="262">(min)</text>
+  <text x="159" y="245">HPLC peak area (%)</text>
+  <text x="100" y="262">1a</text><text x="159" y="262">2a</text><text x="218" y="262">3a</text>
+  <text x="309" y="246">Conversion</text><text x="309" y="262">(%)</text>
+</g>
+<path d="M6 228H354M6 271H354M74 249H245M6 410H354M6 478H354" fill="none" stroke="#71878a" stroke-width=".65"/>
+<g font-size="12" font-weight="bold"><text x="6" y="289">Series 5 · 60 °C</text><text x="6" y="429">Series 6 · 80 °C</text></g>
+<g text-anchor="middle" font-size="12"><text id="cell-1-1" x="32" y="309">10</text><text id="cell-1-2" x="100" y="309">33.3</text><text id="cell-1-3" x="159" y="309">62.4</text><text id="cell-1-4" x="218" y="309">0.0</text><text id="cell-1-5" x="309" y="309">12</text>
+<text id="cell-2-1" x="32" y="327">20</text><text id="cell-2-2" x="100" y="327">16.3</text><text id="cell-2-3" x="159" y="327">81.0</text><text id="cell-2-4" x="218" y="327">0.0</text><text id="cell-2-5" x="309" y="327">26</text>
+<text id="cell-3-1" x="32" y="345">30</text><text id="cell-3-2" x="100" y="345">8.5</text><text id="cell-3-3" x="159" y="345">86.5</text><text id="cell-3-4" x="218" y="345">0.0</text><text id="cell-3-5" x="309" y="345">42</text>
+<text id="cell-4-1" x="32" y="363">40</text><text id="cell-4-2" x="100" y="363">3.9</text><text id="cell-4-3" x="159" y="363">94.6</text><text id="cell-4-4" x="218" y="363">0.1</text><text id="cell-4-5" x="309" y="363">63</text>
+<text id="cell-5-1" x="32" y="381">50</text><text id="cell-5-2" x="100" y="381">0.5</text><text id="cell-5-3" x="159" y="381">98.0</text><text id="cell-5-4" x="218" y="381">0.1</text><text id="cell-5-5" x="309" y="381">93</text>
+<text id="cell-6-1" x="32" y="399">60</text><text id="cell-6-2" x="100" y="399">0.0</text><text id="cell-6-3" x="159" y="399">98.8</text><text id="cell-6-4" x="218" y="399">0.3</text><text id="cell-6-5" x="309" y="399">100</text>
+<text id="cell-7-1" x="32" y="448">10</text><text id="cell-7-2" x="100" y="448">2.8</text><text id="cell-7-3" x="159" y="448">95.3</text><text id="cell-7-4" x="218" y="448">0.1</text><text id="cell-7-5" x="309" y="448">71</text>
+<text id="cell-8-1" x="32" y="466">20</text><text id="cell-8-2" x="100" y="466">0.0</text><text id="cell-8-3" x="159" y="466">98.1</text><text id="cell-8-4" x="218" y="466">0.7</text><text id="cell-8-5" x="309" y="466">100</text></g>
+<g font-size="12">
+  <text x="6" y="499">Conversion (%) = 100 × A₂ / (A₂ + 14.083 × A₁).</text>
+  <text x="6" y="516">A₁ and A₂ are the HPLC areas of 1a and 2a.</text>
+</g>
+<rect x="6" y="533" width="348" height="79" fill="#edf2f1"/>
+<text x="13" y="553" font-size="14" font-weight="bold">Yield of 2a at 80 °C after 20 min</text>
+<g font-size="12">
+  <text x="13" y="577"><tspan font-weight="bold">≥99%</tspan> by quantitative HPLC against an authentic sample.</text>
+  <text x="13" y="598"><tspan font-weight="bold">94%</tspan> isolated in a separate run on 3.6 mmol of 1a.</text>
+</g>
+</svg>

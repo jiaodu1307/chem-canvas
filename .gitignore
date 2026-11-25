@@ -1,0 +1,8 @@
+node_modules/
+.local/
+coverage/
+*.log
+.env
+.env.*
+integrations/codex/plugin/mcp.json
+integrations/codex/plugin/.mcp.json

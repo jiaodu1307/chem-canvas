@@ -1,0 +1,9 @@
+{
+  "runs": [
+    {
+      "runId": "layout-example",
+      "caseId": "版面练习",
+      "sourceSvgSha256": "9e2f5376b397ff188fc1b3db14566913985cc2f3484bc734b07b85dc63da5043"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp} from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import {Client} from '@modelcontextprotocol/sdk/client/index.js';
+import {InMemoryTransport} from '@modelcontextprotocol/sdk/inMemory.js';
+import {startServer} from '../../server/index.js';
+import {createMcpServer} from '../../server/mcp.js';
+import {Resvg} from '@resvg/resvg-js';
+
+test('a region note returns only the selected pixels of the saved viewport and cannot be inspected on a different version',async t=>{
+  const app=await startServer({port:0,dataDirectory:await mkdtemp(path.join(os.tmpdir(),'figure-region-'))});
+  const [left,right]=InMemoryTransport.createLinkedPair(),client=new Client({name:'region-test',version:'1'});
+  await createMcpServer(app.url,{projectId:'default'}).connect(right);await client.connect(left);
+  t.after(async()=>{await client.close();await app.close();});
+  const call=args=>client.callTool({name:'canvas_figure',arguments:args});
+  const source='<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="10 10 100 100"><rect x="10" y="10" width="50" height="100" fill="blue"/><rect x="60" y="10" width="50" height="100" fill="red"/><text x="87" y="44" font-size="8">CHO</text></svg>';
+  const save=await call({mode:'save',source,operationId:'s1',expectedRevision:0});
+  const {figure}=JSON.parse(save.content[0].text);
+  const request={action:'add',operationId:'box',expectedRevision:1,figureId:figure.id,artworkKey:figure.artworkKey,text:'修改选框内的标注'};
+  const add=extra=>fetch(app.url+'/api/figure/review?project=default',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({...request,...extra})});
+  const region={x:.625,y:.25,width:.25,height:.5};
+  for(const patch of [{region:{...region,width:0}},{region:{...region,height:2}},{region:{...region,x:-.1}},{region,point:{x:0,y:0}}])assert.equal((await add(patch)).status,400);
+  assert.equal((await add({region})).status,200);
+  const inspect={mode:'read',reviewNoteId:'box'};
+  const result=await call(inspect),meta=JSON.parse(result.content[0].text);
+  assert.deepEqual(meta.selectedNote.region,region);assert.deepEqual(meta.image.bounds,region);
+  assert.deepEqual([meta.image.width,meta.image.height],[50,50]);
+  assert.equal(result.content[1].type,'image');
+  const png=result.content[1].data;
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50"><image width="50" height="50" xlink:href="data:image/png;base64,'+png+'"/></svg>';
+  const pixels=new Resvg(svg).render().pixels;
+  // Region straddles the red half and the right margin of a centered square viewBox.
+  const pixel=x=>Array.from(pixels.subarray((25*50+x)*4,(25*50+x)*4+4));
+  assert.deepEqual(pixel(5),[255,0,0,255]);assert.deepEqual(pixel(45),[255,255,255,255]);
+  let ink=0;
+  for(let i=0;i<pixels.length;i+=4)if(pixels[i]<100 && pixels[i+1]<100 && pixels[i+2]<100)ink++;
+  assert.ok(ink>0,'the crop must also contain the black CHO label');
+  assert.equal((await call({...inspect,includeImage:false})).content.length,1);
+  assert.equal((await call({...inspect,reviewNoteId:'missing'})).isError,true);
+  await call({mode:'save',source:source.replace('red','green'),operationId:'s2',expectedRevision:2});
+  const stale=await call(inspect);assert.equal(stale.isError,true);assert.match(stale.content[0].text,/旧版/);
+});

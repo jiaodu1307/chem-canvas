@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="730" viewBox="0 0 1000 730" font-family="Arial, Helvetica, sans-serif" fill="#18282e">
+  <title>Aerobic batch oxidation of 4-methoxybenzyl alcohol</title>
+  <desc>Skeletal reaction scheme and HPLC time courses for oxidation of alcohol 1a to aldehyde 2a, with acid 3a monitored as a byproduct. The table compares series 5 at 60 °C and series 6 at 80 °C. Quantitative HPLC and isolated yields are reported separately below the table.</desc>
+  <rect width="1000" height="730" fill="white"/>
+
+  <text x="36" y="43" font-size="29" font-weight="bold">Aerobic batch oxidation of 4-methoxybenzyl alcohol</text>
+  <text x="37" y="78" font-size="17">1a (2.5 mmol), Fe(NO<tspan baseline-shift="sub" font-size="12">3</tspan>)<tspan baseline-shift="sub" font-size="12">3</tspan>·9H<tspan baseline-shift="sub" font-size="12">2</tspan>O and TEMPO (0.02 equiv each), acetic acid (3 mL per gram of 1a), O<tspan baseline-shift="sub" font-size="12">2</tspan> balloon</text>
+  <line x1="36" y1="98" x2="964" y2="98" stroke="#b7c3c7"/>
+
+  <g id="alcohol-1a" transform="translate(151 172)">
+    <g fill="none" stroke="#18282e" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+      <polygon points="-36,0 -18,-31 18,-31 36,0 18,31 -18,31"/>
+      <line x1="-14.5" y1="-25.5" x2="14.5" y2="-25.5"/>
+      <line x1="29.5" y1="0" x2="15" y2="25"/>
+      <line x1="-15" y1="25" x2="-29.5" y2="0"/>
+      <line x1="-36" y1="0" x2="-61" y2="0"/>
+      <line x1="-78" y1="-5" x2="-98" y2="-19"/>
+      <polyline points="36,0 64,-16 86,-3"/>
+    </g>
+    <g font-size="21">
+      <text x="-70" y="7" text-anchor="middle">O</text>
+      <text x="88" y="7">OH</text>
+    </g>
+    <text x="0" y="67" text-anchor="middle" font-size="17"><tspan font-weight="bold">1a</tspan><tspan dx="7">4-Methoxybenzyl alcohol</tspan></text>
+  </g>
+
+  <g id="reaction-arrow" fill="#18282e">
+    <line x1="291" y1="172" x2="386" y2="172" stroke="#18282e" stroke-width="2.2"/>
+    <polygon points="397,172 382,166.5 385,172 382,177.5"/>
+  </g>
+
+  <g id="aldehyde-2a" transform="translate(523 172)">
+    <g fill="none" stroke="#18282e" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+      <polygon points="-36,0 -18,-31 18,-31 36,0 18,31 -18,31"/>
+      <line x1="-14.5" y1="-25.5" x2="14.5" y2="-25.5"/>
+      <line x1="29.5" y1="0" x2="15" y2="25"/>
+      <line x1="-15" y1="25" x2="-29.5" y2="0"/>
+      <line x1="-36" y1="0" x2="-61" y2="0"/>
+      <line x1="-78" y1="-5" x2="-98" y2="-19"/>
+      <polyline points="36,0 64,-16 64,-39"/>
+      <line x1="59" y1="-19" x2="59" y2="-39"/>
+      <line x1="64" y1="-16" x2="84" y2="-4.5"/>
+    </g>
+    <g font-size="21">
+      <text x="-70" y="7" text-anchor="middle">O</text>
+      <text x="61.5" y="-43" text-anchor="middle">O</text>
+      <text x="86" y="7">H</text>
+    </g>
+    <text x="0" y="67" text-anchor="middle" font-size="17"><tspan font-weight="bold">2a</tspan><tspan dx="7">4-Methoxybenzaldehyde</tspan></text>
+  </g>
+
+  <text x="682" y="180" text-anchor="middle" font-size="27">+</text>
+
+  <g id="acid-3a" transform="translate(836 172)">
+    <g fill="none" stroke="#18282e" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+      <polygon points="-36,0 -18,-31 18,-31 36,0 18,31 -18,31"/>
+      <line x1="-14.5" y1="-25.5" x2="14.5" y2="-25.5"/>
+      <line x1="29.5" y1="0" x2="15" y2="25"/>
+      <line x1="-15" y1="25" x2="-29.5" y2="0"/>
+      <line x1="-36" y1="0" x2="-61" y2="0"/>
+      <line x1="-78" y1="-5" x2="-98" y2="-19"/>
+      <polyline points="36,0 64,-16 64,-39"/>
+      <line x1="59" y1="-19" x2="59" y2="-39"/>
+      <line x1="64" y1="-16" x2="86" y2="-3"/>
+    </g>
+    <g font-size="21">
+      <text x="-70" y="7" text-anchor="middle">O</text>
+      <text x="61.5" y="-43" text-anchor="middle">O</text>
+      <text x="88" y="7">OH</text>
+    </g>
+    <text x="0" y="67" text-anchor="middle" font-size="17"><tspan font-weight="bold">3a</tspan><tspan dx="7">4-Methoxybenzoic acid</tspan></text>
+    <text x="0" y="89" text-anchor="middle" font-size="15" fill="#53666d">Monitored byproduct</text>
+  </g>
+
+  <g id="batch-time-courses" text-anchor="middle">
+    <rect x="36" y="280" width="928" height="60" fill="#eaf0f1"/>
+    <g fill="none" stroke="#809399">
+      <line x1="36" y1="280" x2="964" y2="280"/>
+      <line x1="378" y1="310" x2="780" y2="310"/>
+      <line x1="36" y1="340" x2="964" y2="340"/>
+      <line x1="36" y1="500" x2="964" y2="500"/>
+      <line x1="36" y1="554" x2="964" y2="554"/>
+    </g>
+    <g font-size="16" font-weight="bold">
+      <text x="80" y="318">Series</text>
+      <text x="183" y="318">Temp. (°C)</text>
+      <text x="306" y="318">Time (min)</text>
+      <text x="579" y="301">HPLC peak area (%)</text>
+      <text x="445" y="332">1a</text>
+      <text x="579" y="332">2a</text>
+      <text x="713" y="332">3a</text>
+      <text x="873" y="306">Reported</text>
+      <text x="873" y="327">conversion (%)</text>
+    </g>
+    <g font-size="17">
+      <g id="series-5">
+        <text x="80" y="426" font-weight="bold">5</text>
+        <text x="183" y="426">60</text>
+        <g transform="translate(0 361)">
+          <text x="306">10</text><text x="445">33.3</text><text x="579">62.4</text><text x="713">0.0</text><text x="873">12</text>
+        </g>
+        <g transform="translate(0 387)">
+          <text x="306">20</text><text x="445">16.3</text><text x="579">81.0</text><text x="713">0.0</text><text x="873">26</text>
+        </g>
+        <g transform="translate(0 413)">
+          <text x="306">30</text><text x="445">8.5</text><text x="579">86.5</text><text x="713">0.0</text><text x="873">42</text>
+        </g>
+        <g transform="translate(0 439)">
+          <text x="306">40</text><text x="445">3.9</text><text x="579">94.6</text><text x="713">0.1</text><text x="873">63</text>
+        </g>
+        <g transform="translate(0 465)">
+          <text x="306">50</text><text x="445">0.5</text><text x="579">98.0</text><text x="713">0.1</text><text x="873">93</text>
+        </g>
+        <g transform="translate(0 491)">
+          <text x="306">60</text><text x="445">0.0</text><text x="579">98.8</text><text x="713">0.3</text><text x="873">100</text>
+        </g>
+      </g>
+      <g id="series-6">
+        <text x="80" y="533" font-weight="bold">6</text>
+        <text x="183" y="533">80</text>
+        <g transform="translate(0 520)">
+          <text x="306">10</text><text x="445">2.8</text><text x="579">95.3</text><text x="713">0.1</text><text x="873">71</text>
+        </g>
+        <g transform="translate(0 546)">
+          <text x="306">20</text><text x="445">0.0</text><text x="579">98.1</text><text x="713">0.7</text><text x="873">100</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <g id="response-correction" font-size="16">
+    <text x="37" y="581">Conversion (%) = 100 × area(2a) / [area(2a) + 14.083 × area(1a)]</text>
+    <text x="37" y="604" fill="#53666d">The factor 14.083 corrects the relative HPLC response.</text>
+  </g>
+
+  <g id="aldehyde-yields">
+    <rect x="36" y="628" width="928" height="79" fill="#eff5f3"/>
+    <text x="52" y="654" font-size="18" font-weight="bold">Yield of 2a at 80 °C after 20 min</text>
+    <text x="52" y="686" font-size="17"><tspan font-weight="bold">≥99%</tspan><tspan dx="6">quantitative HPLC yield against an authentic sample</tspan></text>
+    <line x1="537" y1="666" x2="537" y2="693" stroke="#a1b4ae"/>
+    <text x="555" y="686" font-size="17"><tspan font-weight="bold">94%</tspan><tspan dx="6">isolated yield in a separate 3.6 mmol run of 1a</tspan></text>
+  </g>
+</svg>
