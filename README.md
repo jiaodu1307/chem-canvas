@@ -6,13 +6,13 @@ Chem Canvas 是本地运行的有机化学绘图与研究画布。人和 Agent �
 
 ```text
 请帮我把 Chem Canvas 安装到当前使用的 Agent，并实际验证。仓库是 https://github.com/jiaodu1307/chem-canvas。
-如果已经有这份源码就复用，否则克隆到一个长期保留的目录。
+请将官方仓库克隆到一个长期保留的目录。已有这份源码时可以复用。
 先记住我当前打开的工作区，按仓库 docs/install-agent.zh-CN.md 识别宿主和版本，安装 figure-chemistry 配置，保留已有 MCP 服务。
 完成后请调用 canvas_figure 只读打开图稿，告诉我项目 ID、修订号和画布链接。
 如果必须由我启用开关或重开会话，请告诉我具体操作和验证口令。
 ```
 
-可用于 TRAE、Qoder CN、Qoder CLI、Kimi Code CLI 等支持本地 MCP 的客户端。仓库为私有时，使用者需要有读取权限，或已有一份源码。[完整安装步骤与验证口令](docs/install-agent.zh-CN.md)
+可用于 TRAE、Qoder CN、Qoder CLI、Kimi Code CLI 等支持本地 MCP 的客户端。[完整安装步骤与验证口令](docs/install-agent.zh-CN.md)
 
 ## 运行
 
