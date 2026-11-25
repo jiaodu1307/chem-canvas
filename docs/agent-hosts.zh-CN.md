@@ -63,4 +63,8 @@ node --test tests/plugin-host-config.test.js tests/plugin-doctor.test.js tests/p
 
 Codex 的 app-server 使用生成的 TOML 和独立配置目录完成了原生工具发现，只列出绘图配置中的 `canvas_figure`。Claude Code 2.0.62 在独立配置目录中用生成的 JSON 注册服务器，`claude mcp get chem-canvas` 实测返回 `Connected`。图稿读写和导出由上述 MCP SDK 回归验证。Cursor、Claude Desktop、VS Code、GitHub Copilot CLI、Gemini CLI、OpenCode 和 Zed 的配置已对照各自官方格式，这七个宿主的实际界面还有待逐端验收。
 
+Windows 上使用官方 Qoder CLI 1.1.97，在临时工作区执行本指南的 `--host qoder-cli --install-project` 命令后，`qoder mcp list` 和 `qoder mcp get chem-canvas` 都报告 `Connected`。后者同时确认了项目本地配置路径、stdio 传输和 `figure-chemistry` 工具范围。该验收没有发起模型请求。
+
+同一平台上的官方 Kimi Code 2.7.3 从工作区读取安装器写入的 `.kimi-code/mcp.json`，启动 Node 子进程，完成 MCP 握手并枚举出 `canvas_figure`、`canvas_put_molecule`、`chemistry_parse`。TRAE IDE、TRAE CLI 2.0、Qoder CN IDE、Qoder 国内 CLI 和 Qoder 桌面应用的验证覆盖配置格式与实际 stdio 进程；各产品界面中的工具调用仍待实测。
+
 HTTP 回归使用 SDK 的 `StreamableHTTPClientTransport` 连接独立临时项目，发现工具、保存、回读并导出 SVG，同时验证项目不匹配、错误 Host、错误 Origin、跨站与错误路径均被拒绝。
