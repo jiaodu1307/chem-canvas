@@ -1,0 +1,12 @@
+Base-induced elimination from a vicinal chloroiodide
+
+Compound 5 is 2-chloro-3-iodo-1,1,1,4,4,4-hexafluorobutane. Its structure record does not assign either tetrahedral center. The following five molecular structures identify the substrate and the four products:
+5   FC(F)(F)C(Cl)C(I)C(F)(F)F
+6a  Cl/C(=C/C(F)(F)F)C(F)(F)F   (E)-chloroalkene
+6b  Cl/C(=C\C(F)(F)F)C(F)(F)F   (Z)-chloroalkene
+7a  I/C(=C/C(F)(F)F)C(F)(F)F    (E)-iodoalkene
+7b  I/C(=C\C(F)(F)F)C(F)(F)F    (Z)-iodoalkene
+
+With 1.3 equivalents of KOH in water and 5 mol% tetrabutylammonium bromide, 5 underwent both eliminations. Loss of HI gave 6a and 6b. Loss of HCl gave 7a and 7b. The chloroalkenes and iodoalkenes formed in a 3:2 family ratio. Distillation gave 52% for 6a + 6b combined and 34% for 7a + 7b combined. NMR gave E/Z approximately 4:5 within the chloroalkenes, and approximately 1:2 within the iodoalkenes.
+
+With DBU or diisopropylethylamine in diethyl ether or 1,2-dimethoxyethane, only 6a and 6b formed. The chloroalkenes were not isolated in pure form under these conditions. No isolated yield was reported for this alternative.

@@ -1,0 +1,117 @@
+{
+  "summaryZh": "两份盲稿都正确画出了五种结构，并将合计收率和 E/Z 比分别配回两对烯烃。逐一检查图中的双键，两侧取代基均与原文一致。原文把十个三氟甲基写成 CF₃。纯 SVG 复现了十处，插件稿仅底物两处缩写，四个产物共展开了 24 个 F。",
+  "arms": {
+    "svg": {
+      "runId": "kirij-scheme5-vector-from-data-2026-11-25T01-29-28-792Z-47c3d514",
+      "svgSha256": "f07f0e024dd377910ebd50f3944738492c255e3f45e20e887575b84029201100",
+      "pngSha256": "5aed9cdf74264ab1f489e107da802379bfecaaa2372655445e601995f749684c",
+      "checks": [
+        {
+          "label": "五种编号结构",
+          "correct": 5,
+          "total": 5,
+          "detail": "5 为饱和邻氯碘底物，两处中心均未赋绝对构型。6a/6b 各保留一个 Cl，7a/7b 各保留一个 I；每种结构可辨两个 CF₃。"
+        },
+        {
+          "label": "双键上可见的 E/Z",
+          "correct": 4,
+          "total": 4,
+          "detail": "以卤素和对侧碳上的 CF₃ 判定，6a、7a 在双键两侧，6b、7b 在同侧。按图上键线位置独立核算。"
+        },
+        {
+          "label": "消除途径与去向",
+          "correct": 2,
+          "total": 2,
+          "detail": "失 HI 得到 6a/6b，失 HCl 得到 7a/7b，箭头均指向相应产物。"
+        },
+        {
+          "label": "水相反应条件",
+          "correct": 3,
+          "total": 3,
+          "detail": "KOH 1.3 当量、水、四丁基溴化铵 5 mol% 均有记录。"
+        },
+        {
+          "label": "合计分离收率",
+          "correct": 2,
+          "total": 2,
+          "detail": "52% 对应 6a + 6b，34% 对应 7a + 7b。两份均注明蒸馏后的成对收率。"
+        },
+        {
+          "label": "三项选择性",
+          "correct": 3,
+          "total": 3,
+          "detail": "氯烯烃:碘烯烃为 3:2，氯组 E/Z 约为 4:5，碘组 E/Z 约为 1:2。"
+        },
+        {
+          "label": "替代条件与结果",
+          "correct": 4,
+          "total": 4,
+          "detail": "DBU 或 DIPEA，Et₂O 或 DME，仅得到 6a 和 6b，并保留未得到纯品和未报告分离收率的信息。"
+        },
+        {
+          "label": "原文的 CF₃ 缩写",
+          "correct": 10,
+          "total": 10,
+          "detail": "底物和四个产物各出现两处。CF₃ 在右或 F₃C 在左均按连接端判读。"
+        }
+      ],
+      "noteZh": "五个分子的片段、四个烯烃的双键两侧都能直接看清，显式烯氢也没有改变连接关系。两行产物分别对齐成对收率和 NMR 比例。"
+    },
+    "plugin": {
+      "runId": "kirij-scheme5-hybrid-from-data-2026-11-25T01-29-30-759Z-d99a6995",
+      "svgSha256": "5ac8cb217766529e076256eb3c12f7a47bdce3c76b78139cafe81e1c8abebf63",
+      "pngSha256": "2da49b5760fed78abc9bbb7e98f37db8717c93e842605fb89416a9c0c15e5ce1",
+      "checks": [
+        {
+          "label": "五种编号结构",
+          "correct": 5,
+          "total": 5,
+          "detail": "5 为饱和邻氯碘底物，两处中心均未赋绝对构型。6a/6b 各保留一个 Cl，7a/7b 各保留一个 I；每种结构可辨两个 CF₃。"
+        },
+        {
+          "label": "双键上可见的 E/Z",
+          "correct": 4,
+          "total": 4,
+          "detail": "以卤素和对侧碳上的 CF₃ 判定，6a、7a 在双键两侧，6b、7b 在同侧。按图上键线位置独立核算。"
+        },
+        {
+          "label": "消除途径与去向",
+          "correct": 2,
+          "total": 2,
+          "detail": "失 HI 得到 6a/6b，失 HCl 得到 7a/7b，箭头均指向相应产物。"
+        },
+        {
+          "label": "水相反应条件",
+          "correct": 3,
+          "total": 3,
+          "detail": "KOH 1.3 当量、水、四丁基溴化铵 5 mol% 均有记录。"
+        },
+        {
+          "label": "合计分离收率",
+          "correct": 2,
+          "total": 2,
+          "detail": "52% 对应 6a + 6b，34% 对应 7a + 7b。两份均注明蒸馏后的成对收率。"
+        },
+        {
+          "label": "三项选择性",
+          "correct": 3,
+          "total": 3,
+          "detail": "氯烯烃:碘烯烃为 3:2，氯组 E/Z 约为 4:5，碘组 E/Z 约为 1:2。"
+        },
+        {
+          "label": "替代条件与结果",
+          "correct": 4,
+          "total": 4,
+          "detail": "DBU 或 DIPEA，Et₂O 或 DME，仅得到 6a 和 6b，并保留未得到纯品和未报告分离收率的信息。"
+        },
+        {
+          "label": "原文的 CF₃ 缩写",
+          "correct": 2,
+          "total": 10,
+          "detail": "五个分子槽都请求了 journal 缩写，只有底物五号实际得到两个 CF₃。四个烯烃的八个三氟甲基均被渲染器展开。"
+        }
+      ],
+      "noteZh": "五个真实分子在图中可读，底物构型保留未指定。四个产物的 C=C 构型均正确；八个三氟甲基展开为 24 个 F，令结构和下方编号之间的空白较小。"
+    }
+  }
+}

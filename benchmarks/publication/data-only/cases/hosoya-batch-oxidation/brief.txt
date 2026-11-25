@@ -1,0 +1,17 @@
+Aerobic batch oxidation of 4-methoxybenzyl alcohol 1a (COc1ccc(CO)cc1) gives 4-methoxybenzaldehyde 2a (COc1ccc(C=O)cc1). The monitored oxidation byproduct 3a is 4-methoxybenzoic acid (COc1ccc(C(=O)O)cc1).
+
+Two batch series each used 2.5 mmol of 1a, Fe(NO3)3·9H2O and TEMPO (0.02 equiv each), acetic acid (3 mL per gram of 1a) and an O2 balloon. Series 5 was run at 60 °C and series 6 at 80 °C.
+
+Each observation below gives elapsed minutes, HPLC peak area percentages for 1a, 2a and 3a in that order, and the reported conversion in percent.
+Series 5:
+10 min: 33.3, 62.4, 0.0; 12
+20 min: 16.3, 81.0, 0.0; 26
+30 min: 8.5, 86.5, 0.0; 42
+40 min: 3.9, 94.6, 0.1; 63
+50 min: 0.5, 98.0, 0.1; 93
+60 min: 0.0, 98.8, 0.3; 100
+Series 6:
+10 min: 2.8, 95.3, 0.1; 71
+20 min: 0.0, 98.1, 0.7; 100
+
+Conversion (%) = 100 × area(2a) / [area(2a) + 14.083 × area(1a)]. The factor 14.083 corrects the relative HPLC response. At 80 °C and 20 min the quantitative HPLC yield of 2a against an authentic sample was ≥99%. A separate isolation on a 3.6 mmol charge of 1a under those conditions gave a 94% isolated yield of 2a.

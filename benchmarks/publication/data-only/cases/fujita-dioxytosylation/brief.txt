@@ -1,0 +1,19 @@
+Asymmetric dioxytosylation of three styrenes with the same chiral 2,6-bis(lactate)aryl iodine(III) reagent 4e. For each substrate 1, the vicinal ditosylate 3 and the rearranged geminal ditosylate 5 are alternative products of the same reaction. Ts is 4-methylbenzenesulfonyl.
+
+Study structures (compound ID and SMILES):
+1a C=Cc1ccccc1
+3a Cc1ccc(S(=O)(=O)O[C@@H](c2ccccc2)COS(=O)(=O)c2ccc(C)cc2)cc1
+5a Cc1ccc(S(=O)(=O)OC(Cc2ccccc2)OS(=O)(=O)c2ccc(C)cc2)cc1
+1b C=Cc1ccc(Cl)cc1
+3b Cc1ccc(S(=O)(=O)OC(c2ccc(Cl)cc2)COS(=O)(=O)c2ccc(C)cc2)cc1
+5b Cc1ccc(S(=O)(=O)OC(Cc2ccc(Cl)cc2)OS(=O)(=O)c2ccc(C)cc2)cc1
+1c C=Cc1ccccc1C
+3c Cc1ccc(S(=O)(=O)OC(c2ccccc2C)COS(=O)(=O)c2ccc(C)cc2)cc1
+5c Cc1ccc(S(=O)(=O)OC(Cc2ccccc2C)OS(=O)(=O)c2ccc(C)cc2)cc1
+
+Experimental measurements (substrate; duration; NMR yield of 3; NMR yield of 5; enantiomeric excess of 3):
+1a (styrene); 4 h; 3a 80%; 5a 20%; 3a 92% ee, S major.
+1b (4-chlorostyrene); 20 h; 3b 79%; 5b 5%; 3b 90% ee, absolute configuration undetermined.
+1c (2-methylstyrene); 4 h; 3c 10%; 5c 35%; 3c 96% ee, absolute configuration undetermined.
+
+Common conditions: dichloromethane, -50 degrees C; styrene derivative 43 mM, reagent 4e 47 mM, p-toluenesulfonic acid monohydrate 86 mM. Yields of 3 and 5 were measured by proton NMR with an internal standard. The ee values of 3 were measured by chiral HPLC. The geminal ditosylates 5 are achiral.

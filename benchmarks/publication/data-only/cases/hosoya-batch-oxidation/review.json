@@ -1,0 +1,94 @@
+{
+  "summaryZh": "两份稿件都正确表达了八个时间点、响应因子、收率测法和另做分离的规模。纯 SVG 已能绘制这个常规反应表。两稿都自行重排，按单栏缩小后数字需要放大阅读。",
+  "measurement": "按各自 PNG 逐项对照同页原始 Table 2 的第 5–6 项。表格数字在两份 SVG 中均为 17 个用户单位字号，按长宽比缩放，以 72/25.4 pt/mm 计算标称印刷字号。",
+  "arms": {
+    "svg": {
+      "runId": "hosoya-batch-oxidation-vector-from-data-2026-11-25T01-29-29-227Z-f6676549",
+      "svgSha256": "1fd1ddcbe6956796184bf31613145b79454f0aed7ab7b74f21d31cf5d5047fbe",
+      "pngSha256": "7f6b33376518f981be810f38ba89feb84e2822e6f3b3f8c07951e069386da523",
+      "checks": [
+        {
+          "label": "八个时间点",
+          "correct": 8,
+          "total": 8,
+          "detail": "第 5 项的 6 行和第 6 项的 2 行均与原表逐行一致，包括时间、三个组分的 HPLC 面积占比和校正转化率。"
+        },
+        {
+          "label": "反应条件",
+          "correct": 5,
+          "total": 5,
+          "detail": "2.5 mmol 批次投料、Fe(NO₃)₃·9H₂O 与 TEMPO 各 0.02 当量、AcOH 用量 3 mL/g 以及 O₂ 气球均对应。"
+        },
+        {
+          "label": "检测量和转化率公式",
+          "correct": 3,
+          "total": 3,
+          "detail": "1a、2a、3a 三列同属峰面积百分比；另列转化率；公式的分子为 100 × area(2a)，分母为 area(2a) + 14.083 × area(1a)。"
+        },
+        {
+          "label": "80 °C、20 min 的两项收率",
+          "correct": 2,
+          "total": 2,
+          "detail": "明确外标 HPLC 收率 ≥99% 和单独用 3.6 mmol 进行分离的 94% 收率。该行 2a 的峰面积 98.1% 与转化率 100% 各自保留。"
+        },
+        {
+          "label": "目检分子结构",
+          "correct": 3,
+          "total": 3,
+          "detail": "对位甲氧基、苄醇 1a、醛 2a 与羧酸 3a 的键线和编号均吻合；羧酸标作受监测的副产物。"
+        },
+        {
+          "label": "成图可读性",
+          "correct": 3,
+          "total": 3,
+          "detail": "表头和数据列可配对；末尾说明可读；未见标签越界或表格互盖。按 170 mm 宽排版，表格数字标称 8.2 pt；85 mm 宽时约 4.1 pt。"
+        }
+      ],
+      "noteZh": "表尾并列两项收率，醛基显式画出 C(=O)H。三个结构可由线条复读，面板与原文选段的全部实验数值一致。"
+    },
+    "plugin": {
+      "runId": "hosoya-batch-oxidation-hybrid-from-data-2026-11-25T01-29-31-985Z-07df9ead",
+      "svgSha256": "d945ea6d0c985c85b2a3dc654f27db6cf5a5c2a2695081a9769923d5d30c6a7c",
+      "pngSha256": "728bdf85fce5c12ed5e6ef4b1e4bf7dd95540ae375c076357968ef89d90f62de",
+      "checks": [
+        {
+          "label": "八个时间点",
+          "correct": 8,
+          "total": 8,
+          "detail": "第 5 项的 6 行和第 6 项的 2 行均与原表逐行一致，包括时间、三个组分的 HPLC 面积占比和校正转化率。"
+        },
+        {
+          "label": "反应条件",
+          "correct": 5,
+          "total": 5,
+          "detail": "2.5 mmol 批次投料、Fe(NO₃)₃·9H₂O 与 TEMPO 各 0.02 当量、AcOH 用量 3 mL/g 以及 O₂ 气球均对应。"
+        },
+        {
+          "label": "检测量和转化率公式",
+          "correct": 3,
+          "total": 3,
+          "detail": "1a、2a、3a 三列同属峰面积百分比；另列转化率；公式的分子为 100 × area(2a)，分母为 area(2a) + 14.083 × area(1a)。"
+        },
+        {
+          "label": "80 °C、20 min 的两项收率",
+          "correct": 2,
+          "total": 2,
+          "detail": "明确外标 HPLC 收率 ≥99% 和单独用 3.6 mmol 进行分离的 94% 收率。该行 2a 的峰面积 98.1% 与转化率 100% 各自保留。"
+        },
+        {
+          "label": "目检分子结构",
+          "correct": 3,
+          "total": 3,
+          "detail": "对位甲氧基、苄醇 1a、醛 2a 与羧酸 3a 的键线和编号均吻合；羧酸标作受监测的副产物。"
+        },
+        {
+          "label": "成图可读性",
+          "correct": 3,
+          "total": 3,
+          "detail": "表头和数据列可配对；末尾说明可读；未见标签越界或表格互盖。按 170 mm 宽排版，表格数字标称 7.6 pt；85 mm 宽时约 3.8 pt。"
+        }
+      ],
+      "noteZh": "右侧单列两项收率，三个分子采用项目结构槽。苯环和羰基采用另一朝向，标示的连接和副产物身份均与原文一致。"
+    }
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "summaryZh": "同一试剂下三组实验的产率、ee 及其归属，两张成图均与原文一致。自由 SVG 用 OTs 简写并正确区分 S 楔与未定构型，两个 OTs 与细分隔线相交。插件保留全部分子图，盲稿以展开式显示磺酸酯。",
+  "arms": {
+    "svg": {
+      "runId": "fujita-dioxytosylation-vector-from-data-2026-11-25T01-29-30-891Z-a4f3ce3c",
+      "svgSha256": "4eedd1c4250d8f41a4b490f2b9eaa4e99a3dcf83e8a446228c0bdb036f64406b",
+      "pngSha256": "9133d29ed82645c54830bc109bd8be1b941eb044f5a8b274279d0539132f5c31",
+      "checks": [
+        {
+          "label": "三种底物与两类产物的可见连接",
+          "correct": 9,
+          "total": 9,
+          "detail": "H、对氯、邻甲基三个系列的底物、邻位二磺酸酯和同碳二磺酸酯均可从线条辨认。"
+        },
+        {
+          "label": "收率及产物归属",
+          "correct": 6,
+          "total": 6,
+          "detail": "3a/5a 为 80/20，3b/5b 为 79/5，3c/5c 为 10/35，均为百分数。"
+        },
+        {
+          "label": "ee 及产物归属",
+          "correct": 3,
+          "total": 3,
+          "detail": "三个 ee 依次为 92%、90%、96%，均归给邻位产物 3。"
+        },
+        {
+          "label": "时长及底物归属",
+          "correct": 3,
+          "total": 3,
+          "detail": "1a 为 4 h，1b 为 20 h，1c 为 4 h。"
+        },
+        {
+          "label": "试剂、浓度、溶剂和温度",
+          "correct": 5,
+          "total": 5,
+          "detail": "4e 47 mM、底物 43 mM、TsOH·H₂O 86 mM、CH₂Cl₂、−50 °C。"
+        },
+        {
+          "label": "测量方法",
+          "correct": 2,
+          "total": 2,
+          "detail": "收率为带内标的 ¹H NMR，ee 由手性 HPLC 测得。"
+        },
+        {
+          "label": "文字标明 3a 的优势构型",
+          "correct": 1,
+          "total": 1,
+          "detail": "3a 标明 S major。"
+        },
+        {
+          "label": "未知构型与 ee 的文字区分",
+          "correct": 2,
+          "total": 2,
+          "detail": "3b 与 3c 分别保留 ee，文字均明确绝对构型未定。"
+        },
+        {
+          "label": "3a 由可见楔键给出 S",
+          "correct": 1,
+          "total": 1,
+          "detail": "实楔由手性碳指向 OTs。H 在纸面后，OTs→CH₂OTs→苯基逆时针，与 S 一致。"
+        },
+        {
+          "label": "3b、3c 未指定唯一构型",
+          "correct": 2,
+          "total": 2,
+          "detail": "两条波浪键均与对应的未定标签相符。"
+        },
+        {
+          "label": "与原文一致的 OTs 简写",
+          "correct": 12,
+          "total": 12,
+          "detail": "六个产物各有两个 OTs，脚注另有 Ts 的含义。"
+        },
+        {
+          "label": "行内结构标签避开分隔线",
+          "correct": 1,
+          "total": 3,
+          "detail": "5b、5c 的上方 OTs 与水平分隔线相交，仍可辨字。"
+        }
+      ],
+      "noteZh": "各化合物由普通 SVG 文字和键线构成。3a 四面体手性中心的楔线由图上方向核对。"
+    },
+    "plugin": {
+      "runId": "fujita-dioxytosylation-hybrid-from-data-2026-11-25T01-29-30-074Z-dea03f09",
+      "svgSha256": "8c56b96854f626b2aad0860b89b65a6b357babb575585a9f5961720e35930ea1",
+      "pngSha256": "be5ebc068b4d20e98ff6d442dcb81608c3e09cfa2027d458056af154b88c8f4d",
+      "checks": [
+        {
+          "label": "三种底物与两类产物的可见连接",
+          "correct": 9,
+          "total": 9,
+          "detail": "H、对氯、邻甲基三个系列的底物、邻位二磺酸酯和同碳二磺酸酯均可从线条辨认。"
+        },
+        {
+          "label": "收率及产物归属",
+          "correct": 6,
+          "total": 6,
+          "detail": "3a/5a 为 80/20，3b/5b 为 79/5，3c/5c 为 10/35，均为百分数。"
+        },
+        {
+          "label": "ee 及产物归属",
+          "correct": 3,
+          "total": 3,
+          "detail": "三个 ee 依次为 92%、90%、96%，均归给邻位产物 3。"
+        },
+        {
+          "label": "时长及底物归属",
+          "correct": 3,
+          "total": 3,
+          "detail": "1a 为 4 h，1b 为 20 h，1c 为 4 h。"
+        },
+        {
+          "label": "试剂、浓度、溶剂和温度",
+          "correct": 5,
+          "total": 5,
+          "detail": "4e 47 mM、底物 43 mM、TsOH·H₂O 86 mM、CH₂Cl₂、−50 °C。"
+        },
+        {
+          "label": "测量方法",
+          "correct": 2,
+          "total": 2,
+          "detail": "收率为带内标的 ¹H NMR，ee 由手性 HPLC 测得。"
+        },
+        {
+          "label": "文字标明 3a 的优势构型",
+          "correct": 1,
+          "total": 1,
+          "detail": "3a 标明 S major。"
+        },
+        {
+          "label": "未知构型与 ee 的文字区分",
+          "correct": 2,
+          "total": 2,
+          "detail": "3b 与 3c 分别保留 ee，文字均明确绝对构型未定。"
+        },
+        {
+          "label": "3a 由可见楔键给出 S",
+          "correct": 1,
+          "total": 1,
+          "detail": "从苄位碳到 CH₂OTs 为虚楔，配合另外两个键，三维优先序给出 S。"
+        },
+        {
+          "label": "3b、3c 未指定唯一构型",
+          "correct": 2,
+          "total": 2,
+          "detail": "两个中心都画普通单键，下方文字明确说明构型未定。"
+        },
+        {
+          "label": "与原文一致的 OTs 简写",
+          "correct": 0,
+          "total": 12,
+          "detail": "六个产物均展开对甲苯磺酸酯，实际结构可读。"
+        },
+        {
+          "label": "行内结构标签避开分隔线",
+          "correct": 3,
+          "total": 3,
+          "detail": "三行的结构与分隔线均有间距。"
+        }
+      ],
+      "noteZh": "9 个结构均由已保存的分子槽绘出。收率由脚注统一标明 NMR 方法。原运行采用默认展开模式。"
+    }
+  }
+}

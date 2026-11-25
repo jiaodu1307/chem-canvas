@@ -1,0 +1,13 @@
+Study data for a proposed Suzuki–Miyaura catalytic cycle
+
+The catalyst is 17d, a cationic palladium(II) chloride complex of neutral 2,6-bis[(sec-butylsulfanyl)methyl]pyridine. The pyridyl nitrogen and the two thioether sulfurs bind palladium throughout the cycle. The free tridentate ligand has connectivity CCC(C)SCc1cccc(CSC(C)CC)n1. The configurations of the sec-butyl groups are unspecified. 17d is square planar: the two sulfurs are trans to one another, and the pyridyl nitrogen is trans to chloride.
+
+The following five transformations are proposed. Ar denotes 4-methoxyphenyl. For all four octahedral intermediates the two pincer sulfurs remain mutually trans.
+
+1. Oxidative addition. 17d reacts with 4-bromoanisole (COc1ccc(Br)cc1) to give cis-Pd(Ar)(Br)(Cl)(SNS). N is trans to Br, and Ar is trans to Cl.
+2. First isomerisation. The preceding cis intermediate gives trans-Pd(Ar)(Br)(Cl)(SNS). N is trans to Cl, and Ar is trans to Br.
+3. Transmetallation. The preceding trans complex reacts with phenylboronic acid (OB(O)c1ccccc1), releasing bromoboronic acid (OB(O)Br) and forming trans-Pd(Ar)(Ph)(Cl)(SNS). N is trans to Cl, and Ar is trans to Ph.
+4. Second isomerisation. The preceding trans intermediate gives cis-Pd(Ar)(Ph)(Cl)(SNS). N is trans to Ph, and Ar is trans to Cl.
+5. Reductive elimination. The preceding cis intermediate releases 4-methoxybiphenyl (COc1ccc(-c2ccccc2)cc1) and regenerates 17d.
+
+No yields, temperatures or rate measurements are supplied.
