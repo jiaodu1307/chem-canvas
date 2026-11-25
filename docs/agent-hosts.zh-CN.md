@@ -4,6 +4,8 @@
 
 ## 在自己的机器上配置
 
+首次安装可直接把[中文安装提示词](install-agent.zh-CN.md)发给当前 Agent。安装器按实际客户端合并 `chem-canvas`，支持保留 JSONC 注释。以下命令省略安装目标时会打印配置供检查。
+
 在 Chem Canvas 源码根目录使用 Node.js 24 或更高版本运行：
 
 ```sh
@@ -11,10 +13,16 @@ npm ci
 node scripts/plugin-config.js --host cursor --profile figure-chemistry
 ```
 
-把输出的 Chem Canvas 条目合并到下表对应的配置中，保留已有服务器。重新连接或重启宿主，在工具列表查找 `canvas_figure`（一些宿主会在名称前加服务器名）。命令根据实际使用的 Node 和当前安装位置输出绝对路径，支持路径含空格及宿主从其他工作目录启动。换机器或移动源码后重新生成一次。默认运行于 `http://127.0.0.1:4317`。
+重新连接或重启宿主，在工具列表查找 `canvas_figure`（一些宿主会在名称前加服务器名）。生成器为脚本写入当前 checkout 的绝对路径。TRAE 要求启动命令不含空格，Node 可执行文件路径含空格时会使用 IDE 的 PATH 查找 `node`。换机器或移动源码后重新生成配置。默认运行于 `http://127.0.0.1:4317`。
 
 | 宿主 | `--host` | 合并到哪里 |
 | --- | --- | --- |
+| TRAE IDE（本地任务或工作树） | `trae` | 工作区 `.trae/mcp.json`。在设置 → MCP 中启用项目级 MCP，并在当前智能体启用服务。[TRAE 国内文档](https://docs.trae.cn/ide_add-mcp-servers) |
+| TRAE CLI 2.0 | `trae-cli` | 将输出的 TOML 表合并到 `~/.trae/traecli.toml`，在 TUI 使用 `/mcp` 检查。工具范围和项目通过命令参数传递。[CLI 配置文件](https://docs.trae.cn/cli_config-file) |
+| Qoder CN 国内版 IDE | `qoder-cn` | `--install-user` 合并到 `~/.qoder-cn/mcp.json`。设置 → MCP 服务 → 我的服务中可展开工具。[国内版 IDE](https://docs.qoder.cn/user-guide/guide-for-using-mcp) |
+| Qoder CLI（国际版 / 国内版） | `qoder-cli` | `--install-project` 合并到 `.qoder/settings.local.json`。从该工作区运行 `qoder mcp list` 或 `qodercn mcp list`。[国际版 CLI](https://docs.qoder.com/cli/mcp-servers) · [国内版 CLI](https://docs.qoder.cn/cli/mcp-reference) |
+| Qoder 桌面应用（Connectors）或传统国际版 IDE | `qoder` | Connectors 桌面用 `--install-user` 写入 `~/.qoder/settings.json`。传统国际版 IDE 用 Settings → MCP → My Servers → Add 打开配置，传该文件给 `--install-file`。[桌面 Connectors](https://docs.qoder.com/qoder/connectors) · [国内桌面 Connectors](https://docs.qoder.cn/qoder/connectors) · [国际版 IDE](https://docs.qoder.com/user-guide/chat/model-context-protocol) |
+| Kimi Code CLI | `kimi` | 项目 `.kimi-code/mcp.json`，或用户 `~/.kimi-code/mcp.json`（尊重 `KIMI_CODE_HOME`）。项目配置生效需要信任当前工作区，新会话中使用 `/mcp` 检查。[Kimi Code MCP](https://www.kimi.com/code/docs/kimi-code-cli/customization/mcp.html) |
 | Codex CLI / 桌面端本地环境 | `codex` | `~/.codex/config.toml` 中的 `mcp_servers`。已安装项目的原生 Codex 插件时可直接使用已有连接。[官方配置](https://developers.openai.com/codex/mcp) |
 | Claude Code | `claude-code` | 工作项目根目录的 `.mcp.json`。运行 `claude mcp get chem-canvas` 查看连接状态。[官方配置](https://code.claude.com/docs/en/mcp) |
 | Claude Desktop | `claude-desktop` | 设置 → Developer → Edit Config，对应 `claude_desktop_config.json`。[本地服务器配置](https://modelcontextprotocol.io/docs/develop/connect-local-servers) |
@@ -47,10 +55,11 @@ node scripts/plugin-http.js --project default --profile figure
 给 Agent 一条只读指令：“读取当前项目的图稿，告诉我项目 ID、版本号和待核对的批注。” 若项目尚无图稿，空图稿也是正常结果。需要修改时再明确给出目标对象或图上批注。
 
 ```sh
-node --test tests/plugin-host-config.test.js tests/plugin-http.test.js
+node scripts/plugin-doctor.js --mcp --profile figure-chemistry
+node --test tests/plugin-host-config.test.js tests/plugin-doctor.test.js tests/plugin-http.test.js
 ```
 
-该测试核对九种宿主与通用配置的结构，并从不同工作目录启动真实 stdio 子进程，在临时项目中保存、回读、导出 SVG、检查项目隔离。开源候选源码复制到含中文和空格的新目录后也通过了相同测试。
+测试会读取 TRAE、Qoder CN IDE、Qoder 桌面、Qoder CLI 和 Kimi Code 的安装文件，从独立工作目录启动配置指定的 stdio 进程，发现工具并只读打开图稿。还覆盖同名冲突、重复安装、原有 JSONC 注释与其他服务。绘图回归会在临时项目中保存、回读和导出 SVG，并检查项目隔离。实际宿主能否看到工具，可在相应客户端中执行[验证口令](install-agent.zh-CN.md)。
 
 Codex 的 app-server 使用生成的 TOML 和独立配置目录完成了原生工具发现，只列出绘图配置中的 `canvas_figure`。Claude Code 2.0.62 在独立配置目录中用生成的 JSON 注册服务器，`claude mcp get chem-canvas` 实测返回 `Connected`。图稿读写和导出由上述 MCP SDK 回归验证。Cursor、Claude Desktop、VS Code、GitHub Copilot CLI、Gemini CLI、OpenCode 和 Zed 的配置已对照各自官方格式，这七个宿主的实际界面还有待逐端验收。
 

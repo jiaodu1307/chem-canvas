@@ -9,6 +9,7 @@ Chem Canvas installs the following direct dependencies from the npm registry. Ve
 | @resvg/resvg-js | 2.6.2 | MPL-2.0 |
 | ajv | 8.20.0 | MIT |
 | fflate | 0.8.3 | MIT |
+| jsonc-parser | 3.3.1 | MIT |
 | pdfkit | 0.21.0 | MIT |
 | saxes | 6.0.0 | ISC |
 | svg-to-pdfkit | 0.1.8 | MIT |
