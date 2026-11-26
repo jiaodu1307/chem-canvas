@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { applyOperation } from '../src/core/index.js';
 import { failure } from './store.js';
+import { figureRegionImage } from './canvas-overview.js';
 
 export const figureFormat='chem-canvas.figure/1';
 
@@ -96,4 +97,35 @@ export function renderSavedFigure(document,revision) {
   if(!figure)throw failure('NOT_FOUND','请先保存 SVG 图稿。');
   if(figure.staleMoleculeIds.length)throw failure('CONFLICT','关联分子已变化，请重新预览并保存图稿。');
   return previewFigure(document,figure.source);
+}
+
+// Use the saved molecular records from each revision when expanding its SVG slots.
+export async function compareFigureRegion(document, revision, noteId, includeImages = true) {
+  if (String(document.revision) !== revision) throw failure('CONFLICT','项目已变化，请重新读取图稿。');
+  const current = description(document, savedFigure(document));
+  const note = current?.reviewNotes.find(item => item.id === noteId);
+  if (!note) throw failure('NOT_FOUND','找不到指定的图稿批注。');
+  if (!note.region) throw failure('VALIDATION','这条批注没有选框。');
+  if (current.staleMoleculeIds.length) throw failure('CONFLICT','关联分子已变化，请重新预览并保存图稿。');
+
+  const entry = document.history.find(item => item.revision === note.createdAtRevision && item.operationId === note.id);
+  if (!entry?.after) throw failure('CONFLICT','缺少批注所在版本的图稿。');
+  const originalDocument = {id:document.id, revision:entry.revision, objects:entry.after.objects};
+  const original = description(originalDocument, savedFigure(originalDocument));
+  if (original?.id !== current.id || original.artworkKey !== note.artworkKey || original.staleMoleculeIds.length) {
+    throw failure('CONFLICT','批注与历史图稿不匹配。');
+  }
+  const comparison = {basis:'same-relative-region', region:note.region};
+  const images = [];
+  for (const [role, snapshot, figure] of [['original', originalDocument, original], ['current', document, current]]) {
+    const frame = {revision:snapshot.revision, artworkKey:figure.artworkKey, sourceSha256:figure.sourceSha256};
+    if (includeImages) {
+      const rendered = await previewFigure(snapshot, figure.source);
+      const crop = figureRegionImage(rendered, note);
+      frame.image = crop.metadata;
+      images.push(crop.content);
+    }
+    comparison[role] = frame;
+  }
+  return {comparison, images};
 }

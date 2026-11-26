@@ -5,7 +5,8 @@ const el=id=>document.getElementById(id);
 const source=el('source');
 let revision=null,savedSource='',stale=false,busy=false,blobUrl=null,shownSource=null,pendingId=null,sampleDraft=false;
 let savedFigure=null;
-const reviews=figureReviews({run,applyState:load,currentRevision:()=>revision,write:input=>api('/api/figure/review',input)});
+const reviews=figureReviews({run,applyState:load,currentRevision:()=>revision,write:input=>api('/api/figure/review',input),
+  compare:noteId=>api('/api/figure/review-comparison?'+new URLSearchParams({noteId,revision:String(revision)}))});
 const message=text=>{el('state').textContent=text;};
 const dirty=()=>sampleDraft || source.value!==savedSource;
 const available=()=>revision!==null && !busy;

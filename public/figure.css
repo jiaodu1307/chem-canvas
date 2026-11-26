@@ -45,6 +45,11 @@ textarea { width:100%; min-height:460px; resize:vertical; margin:12px 0 8px; pad
 #reviews p { white-space:pre-wrap }
 #reviews small { color:#4d675f }
 #reviews button { padding:2px 8px; margin-left:8px; font-size:13px }
+.review-comparison:not([hidden]) { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin:8px 0 }
+.review-comparison figure { margin:0; min-width:0 }
+.review-comparison figcaption { font-size:13px; color:#4d675f }
+.review-comparison img { max-width:100%; height:auto; border:1px solid #d9e0db }
+.review-comparison small { grid-column:1/-1 }
 .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%) }
 #empty { color:#6b7971 }
 details { margin-top:8px }

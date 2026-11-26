@@ -6,7 +6,7 @@ const percent=n=>Math.round(n*100)+'%';
 const position=(point,region)=>region?'选框（'+percent(region.x)+'，'+percent(region.y)+'）至（'+percent(region.x+region.width)+'，'+percent(region.y+region.height)+'）':point?'左起 '+percent(point.x)+'，上起 '+percent(point.y):'整张图';
 const bounded=n=>Math.min(1,Math.max(0,n));
 
-export function figureReviews({write,run,applyState,currentRevision}){
+export function figureReviews({write,compare,run,applyState,currentRevision}){
   const field=el('review-text'),pick=el('pick-point'),reset=el('review-reset');
   let figure=null,visible=false,busy=true,point=null,region=null,draftKey=null,pending=null;
   const area=bindRegionSelection(pick,{onChange(){pins();controls();},onSelect(rect){choose(null,rect);field.focus();}});
@@ -70,6 +70,29 @@ export function figureReviews({write,run,applyState,currentRevision}){
     }
     el('pins').replaceChildren(...markers);
   }
+  function appendComparison(row,note,index){
+    const toggle=document.createElement('button'),panel=document.createElement('div');
+    toggle.type='button';toggle.textContent='对照修改前后';toggle.setAttribute('aria-expanded','false');
+    panel.className='review-comparison';panel.id='review-comparison-'+index;panel.hidden=true;
+    toggle.setAttribute('aria-controls',panel.id);
+    toggle.onclick=()=>run(async()=>{
+      if(panel.hidden && !panel.childElementCount){
+        const {comparison,images}=await compare(note.id);
+        for(const [i,role] of ['original','current'].entries()){
+          const frame=comparison[role],item=document.createElement('figure'),caption=document.createElement('figcaption'),img=document.createElement('img');
+          caption.textContent=(i===0?'批注时':'当前图稿')+' · r'+frame.revision;
+          img.src='data:image/png;base64,'+images[i].data;img.alt=caption.textContent+'的选区';
+          img.width=frame.image.width*3;
+          item.append(caption,img);panel.append(item);
+        }
+        const hint=document.createElement('small');hint.textContent='两图取自相同的相对位置。若排版有移动，请核对选框中的内容。';
+        panel.append(hint);
+      }
+      panel.hidden=!panel.hidden;
+      toggle.setAttribute('aria-expanded',String(!panel.hidden));
+    });
+    row.append(toggle,panel);
+  }
   function list(){
     el('review-request').hidden=true;
     const rows=(figure?.reviewNotes ?? []).map((note,i)=>{
@@ -86,6 +109,7 @@ export function figureReviews({write,run,applyState,currentRevision}){
         });
         li.append(btn);
       }
+      if(note.region && !note.onCurrentArtwork)appendComparison(li,note,i+1);
       return li;
     });
     el('reviews').replaceChildren(...rows);
@@ -99,7 +123,9 @@ export function figureReviews({write,run,applyState,currentRevision}){
   el('review-copy').onclick=async()=>{
     const open=figure.reviewNotes.filter(note=>!note.resolvedAtRevision);
     const revisions=open.map(note=>'r'+note.createdAtRevision).join('、');
-    const inspect=open.some(note=>note.region && note.onCurrentArtwork)?' 当前图稿的框选可以用同一工具传入 reviewNoteId 查看局部 PNG。':'';
+    const inspect=open.filter(note=>note.region).map(note=>' 批注 r'+note.createdAtRevision+'：请调用 canvas_figure '+JSON.stringify({
+      projectId,mode:'read',reviewNoteId:note.id,...(!note.onCurrentArtwork && {compareWithCurrent:true})
+    })+(note.onCurrentArtwork?' 查看选框。':' 对照批注时与当前版的同一位置。')).join('');
     const request='请读取 Chem Canvas 项目 '+JSON.stringify(projectId)+' 的图稿（canvas_figure，mode=read），核对图稿 ID '+figure.id+'。请处理添加于 '+revisions+' 且仍待核对的批注，修改后预览。旧版位置请结合批注内容在当前图中重新定位。'+inspect;
     try{
       await navigator.clipboard.writeText(request);

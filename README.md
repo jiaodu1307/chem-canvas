@@ -42,6 +42,12 @@ Codex 和 Kimi Code CLI 实际列出了画布工具，Claude Code 和 Qoder 国�
 
 在这张催化循环里，可以沿五个箭头核对反应顺序，也可以逐个检查钯中心的配体位置。打开案例可放大图稿，查看每次重绘的结果。[钯催化偶联循环 · Fiebor 等，Scheme 2](https://jiaodu1307.github.io/chem-canvas/fiebor-scheme2.html#from-data)
 
+## 框选一处，让 Agent 改图
+
+[![Fujita 产物 5b 的同一选区。左图的灰线穿过 OTs，右图在标签两侧留出缺口。](docs/images/fujita-5b-review.png)](https://jiaodu1307.github.io/chem-canvas/fujita-dioxytosylation.html#local-edit)
+
+在 Fujita 的盲稿上框住 5b 的 OTs 并提交批注后，Agent 给分隔线开了一个缺口。现在可用原批注并排回看修改前后的同一位置。这次导出共改变 91 个像素，全部在框内，41 个可编辑文字标签均保留。[查看实际修订](https://jiaodu1307.github.io/chem-canvas/fujita-dioxytosylation.html#local-edit) · [用自己的 Agent 复测](benchmarks/local-selection/fujita-5b/)
+
 ## 同一份实验数据，两种成图
 
 Kirij 等人的 Scheme 5 有两条消除途径和四个烯烃产物。下面两次独立绘图只向 Agent 提供反应、结构和实验数据，论文原图留到出图后核对。

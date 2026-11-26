@@ -9,6 +9,7 @@ import {Client} from '@modelcontextprotocol/sdk/client/index.js';
 import {StdioClientTransport} from '@modelcontextprotocol/sdk/client/stdio.js';
 import {parse} from 'jsonc-parser';
 import {startServer} from '../server/index.js';
+import {buildConfig, discoverCatalog} from '../integrations/deepseek/adapter.mjs';
 
 const script=fileURLToPath(new URL('../scripts/plugin-config.js',import.meta.url));
 const cli=(...args)=>execFileSync(process.execPath,[script,...args],{cwd:os.tmpdir(),encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim();
@@ -187,4 +188,57 @@ test('a generated stdio config works from an unrelated directory and shares only
   } finally {
     await client.close();
   }
+});
+
+test('DeepSeek and Kimi stdio configurations hand off one rectangular figure edit', async t => {
+  const directory = await mkdtemp(path.join(os.tmpdir(), 'chem-review-hosts-'));
+  const app = await startServer({port: 0, dataDirectory: directory});
+  const deepseek = new Client({name: 'dsh-config-test', version: '1'});
+  const kimi = new Client({name: 'kimi-config-test', version: '1'});
+  t.after(async () => {
+    await Promise.all([deepseek.close(), kimi.close()]);
+    await app.close();
+    await rm(directory, {recursive: true, force: true, maxRetries: 3});
+  });
+
+  const options = {url: app.url, projectId: 'default', profile: 'figure'};
+  assert.throws(() => buildConfig({...options, profile: 'unknown'}), /tool profile/);
+  const config = buildConfig(options);
+  const catalog = await discoverCatalog(config);
+  assert.deepEqual(catalog.map(tool => tool.name), ['canvas_figure']);
+  const chemistry = await discoverCatalog(buildConfig({...options, profile: 'figure-chemistry'}));
+  assert.deepEqual(chemistry.map(tool => tool.name).sort(), ['canvas_figure', 'canvas_put_molecule', 'chemistry_parse']);
+  cli('--host', 'kimi', '--profile', 'figure', '--url', app.url, '--project', 'default', '--install-project', directory);
+  const installed = JSON.parse(await readFile(path.join(directory, '.kimi-code', 'mcp.json'), 'utf8'));
+  await deepseek.connect(new StdioClientTransport(config));
+  await kimi.connect(new StdioClientTransport({...entry(installed), cwd: directory}));
+  const call = async (client, args) => {
+    const reply = await client.callTool({name: 'canvas_figure', arguments: args});
+    assert.ok(!reply.isError, reply.content[0].text);
+    return {result: JSON.parse(reply.content[0].text), images: reply.content.filter(block => block.type === 'image')};
+  };
+  const source = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80"><text x="8" y="20">OTs</text><path d="M0 18h100" stroke="black"/></svg>';
+  const {result: blank} = await call(kimi, {mode: 'read'});
+  const {result: saved} = await call(kimi, {mode: 'save', source, expectedRevision: blank.revision, operationId: 'draft'});
+  const review = await fetch(app.url + '/api/figure/review?project=default', {
+    method: 'POST', headers: {'content-type': 'application/json'},
+    body: JSON.stringify({action: 'add', expectedRevision: saved.revision, figureId: saved.figure.id,
+      artworkKey: saved.figure.artworkKey, operationId: 'divider', text: 'Leave a gap around OTs.',
+      region: {x: 0, y: 0, width: .5, height: .4}}),
+  });
+  assert.equal(review.status, 200);
+  const inspect = {mode: 'read', reviewNoteId: 'divider'};
+  const before = await call(deepseek, inspect);
+  assert.equal(before.images.length, 1);
+  const fixed = before.result.figure.source.replace('M0 18h100', 'M0 18h4 M40 18h60');
+  await call(deepseek, {mode: 'preview', source: fixed});
+  await call(deepseek, {mode: 'save', source: fixed, expectedRevision: before.result.revision, operationId: 'fix'});
+  const checked = await call(kimi, {...inspect, compareWithCurrent: true});
+  assert.deepEqual(checked.images.map(block => block.mimeType), ['image/png', 'image/png']);
+  assert.equal(checked.images[0].data, before.images[0].data);
+  assert.notEqual(checked.images[1].data, before.images[0].data);
+  assert.equal(checked.result.figure.source, fixed);
+  const {result: exported} = await call(kimi, {mode: 'export', expectedRevision: checked.result.revision});
+  const svg = await (await fetch(exported.downloadUrl)).text();
+  assert.match(svg, /M0 18h4 M40 18h60/);
 });

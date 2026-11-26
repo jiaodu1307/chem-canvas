@@ -30,7 +30,7 @@ const workflow = {
 };
 const tools = [
   { name:'canvas_figure', description:'Draw a figure freely in one static SVG. Supply source with a viewBox, editable shapes and text. To embed a project molecule, insert <svg data-molecule-id="ID" x="0" y="0" width="120" height="90"/>; optionally add data-abbreviations="journal" for condensed labels. read returns the saved source, revision, molecule IDs and figure.reviewNotes. An open note has resolvedAtRevision:null. A point uses image fractions from top left; re-identify the feature for older artwork when onCurrentArtwork:false. preview returns the rendered image without saving. save persists the source with expectedRevision and a unique operationId. export uses the saved revision and returns a download URL and the bound molecular evidence. Pure SVG charts, tables and mechanisms need no molecule records. Chemical validation applies only to bound molecule slots.',
-    inputSchema:schema({mode:{enum:['read','preview','save','export']},source:{type:'string',minLength:1},expectedRevision:revision,operationId:op,reviewNoteId:{type:'string',minLength:1,description:'In read mode, inspect one current rectangular review note and return its selected region as a PNG. Region x,y,width,height are fractions of the displayed artwork measured from the top left.'},includeImage:{type:'boolean'},includeSvg:{type:'boolean'},checkText:{type:'boolean',description:'In preview, measure text bounds and overlapping glyph runs in length-adjusted labels with the PNG export renderer. Returns textPreflight findings.'}},['mode']),
+    inputSchema:schema({mode:{enum:['read','preview','save','export']},source:{type:'string',minLength:1},expectedRevision:revision,operationId:op,reviewNoteId:{type:'string',minLength:1,description:'In read mode, inspect one rectangular review note. Region x,y,width,height are fractions of the displayed artwork measured from the top left.'},compareWithCurrent:{type:'boolean',description:'With mode read and reviewNoteId, compare the same relative rectangle on the note revision and the current saved artwork. Returns original then current PNG and comparison metadata. If content moved, identify the target again.'},includeImage:{type:'boolean'},includeSvg:{type:'boolean'},checkText:{type:'boolean',description:'In preview, measure text bounds and overlapping glyph runs in length-adjusted labels with the PNG export renderer. Returns textPreflight findings.'}},['mode']),
     annotations:{idempotentHint:true}},
   { name: 'canvas_publication', description: 'Generate journal figures and editable tables from measured experiments and saved molecule IDs. read returns the shared study and molecule inventory. import lists XLSX files staged in the project imports folder; call import again with resourceId and resourceSha256 to read the actual experiment rows. preview uses a full spec and returns a figure. save writes the complete study with expectedRevision and operationId. Omit row.include for both outputs. A scope product card needs a saved molecule. For a single reaction with its caption, use scopeStyle.reactionOnly. Explicitly mark optimization-only controls. read or save a study, then export each desired file using its revision, kind, format and optional columns; the result contains a working local download URL. Set includeFile to receive the file bytes. Reference structure files can first be imported using canvas_put_molecule. Preserve actual measurements, method, qualifiers and footnotes.', inputSchema: schema({ mode: {enum:['read','import','preview','save','export']}, resourceId:string, resourceSha256:{type:'string',pattern:'^[a-f0-9]{64}$'}, listSheets:{type:'boolean'}, sheetName:string, spec: publicationSchema, includeSchema: {type:'boolean',description:'In read mode return the full publication JSON schema.'}, expectedRevision: revision, operationId: op, kind: {enum:['scope','optimization']}, columns: {enum:[1,2]}, format: {enum:['svg','pdf','tiff','docx']}, part: {enum:['reaction'],description:'With format svg, download only the reaction illustration to embed in an external table.'}, includeImage: {type:'boolean'}, includeFile: {type:'boolean'} }, ['mode']), annotations:{idempotentHint:true} },
   { name: 'canvas_import_cdxml', description: 'Import a supported single-page CDXML molecule or complete reaction scheme into this document as new editable objects. Read first. Use preview to inspect parsed chemistry, the native image, counts and ALL compatibility warnings without writing; commit only the reviewed import with the same CDXML and operationId. Preserves existing objects/layout; one import is one undoable transaction. No CDX, arbitrary files, external DTD resolution or silent partial import. Unsupported objects fail explicitly. Current document revision is required; reread on conflicts.', inputSchema: schema({ cdxml: {type:'string',minLength:1,maxLength:524288}, expectedRevision:revision, operationId:op, mode:{enum:['preview','commit']}, includeImage:{type:'boolean',default:true}, includeSvg:{type:'boolean'} }, ['cdxml','expectedRevision','operationId','mode']), annotations:{readOnlyHint:false,destructiveHint:false,idempotentHint:true} },
@@ -84,20 +84,27 @@ export function createMcpServer(baseUrl, {projectId: configuredProjectId,toolPro
       if (!catalog && projectId !== undefined) throw Object.assign(new Error('连接的服务尚不支持项目隔离，请先更新服务。'), {code:'PROJECT_UNSUPPORTED'});
       const api = (route, data) => requestApi(route, data, projectId);
       const explicitScope = boundProjectId !== undefined || requestedProjectId !== undefined;
-      let result, picture, fileContent;
+      let result, picture, fileContent, comparisonImages = [];
       if(params.name==='canvas_figure'){
         const page=new URL('/figure.html',endpoint);
         if(projectId!==undefined)page.searchParams.set('project',projectId);
         if(args.reviewNoteId!==undefined && args.mode!=='read')throw Object.assign(new Error('reviewNoteId requires read mode.'),{code:'VALIDATION'});
+        if(args.compareWithCurrent && (args.mode!=='read' || !args.reviewNoteId))throw Object.assign(new Error('compareWithCurrent requires read mode and reviewNoteId.'),{code:'VALIDATION'});
         if(args.mode==='read'){
           result=await api('/api/figure');
           if(args.reviewNoteId!==undefined){
             const note=result.figure?.reviewNotes.find(n=>n.id===args.reviewNoteId);
             if(!note)throw Object.assign(new Error('找不到指定的图稿批注。'),{code:'NOT_FOUND'});
             if(!note.region)throw Object.assign(new Error('这条批注没有选框。'),{code:'VALIDATION'});
-            if(!note.onCurrentArtwork)throw Object.assign(new Error('该选框属于旧版图稿，请重新定位。'),{code:'CONFLICT'});
             result.selectedNote=note;
-            if(args.includeImage!==false){
+            if(args.compareWithCurrent){
+              const query=new URLSearchParams({noteId:note.id, revision:String(result.revision), images:args.includeImage===false?'0':'1'});
+              const pair=await api('/api/figure/review-comparison?'+query);
+              result.comparison=pair.comparison;
+              comparisonImages=pair.images;
+            }else if(!note.onCurrentArtwork){
+              throw Object.assign(new Error('该选框属于旧版图稿。可用 compareWithCurrent:true 对照原位置，并在新版确认所指内容。'),{code:'CONFLICT'});
+            }else if(args.includeImage!==false){
               const saved=await api('/api/figure/render?revision='+result.revision);
               picture=figureRegionImage(saved,note);
             }
@@ -236,7 +243,7 @@ export function createMcpServer(baseUrl, {projectId: configuredProjectId,toolPro
         result.projectId = projectId;
         result.url = `${endpoint.origin}/?project=${encodeURIComponent(projectId)}&embed=1`;
       }
-      return { content: [{ type: 'text', text: JSON.stringify(result) }, ...(picture ? [picture.content] : []), ...(fileContent ? [fileContent] : [])] };
+      return { content: [{ type: 'text', text: JSON.stringify(result) }, ...(picture ? [picture.content] : []), ...comparisonImages, ...(fileContent ? [fileContent] : [])] };
     } catch (error) {
       return { isError: true, content: [{ type: 'text', text: JSON.stringify({ error: { code: error.code || 'TOOL_ERROR', message: error.message, ...(error.projects ? {projects:error.projects} : {}), ...(error.reason ? { reason: error.reason } : {}), ...(error.conflict ? { conflict: error.conflict } : {}) } }) }] };
     }

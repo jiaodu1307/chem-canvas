@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "chem-canvas",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Author publication SVG figures with a host agent, embed verified molecular structures, and collaborate on a shared research canvas.",
   "author": { "name": "Chem Canvas project" },
   "keywords": ["chemistry", "research", "canvas", "mcp"]

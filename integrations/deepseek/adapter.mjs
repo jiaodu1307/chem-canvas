@@ -3,6 +3,7 @@ import { realpathSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { validateProjectId } from '../../server/project-binding.js';
+import { toolsForProfile } from '../../server/tool-profile.js';
 
 export const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 import assert from 'node:assert/strict';
@@ -15,7 +16,10 @@ export async function discoverCatalog(config) {
     await client.connect(new StdioClientTransport({ command: config.command, args: config.args, cwd: config.cwd, env: config.env, stderr: 'ignore' }));
     const tools = []; let cursor;
     do { const page = await client.listTools({ cursor }); tools.push(...page.tools); cursor = page.nextCursor; } while (cursor);
-    assert.ok(tools.some(tool => tool.name === 'canvas_read'));
+    const expected = toolsForProfile(config.env.CHEM_CANVAS_TOOL_PROFILE);
+    const names = tools.map(tool => tool.name);
+    if (expected) assert.deepEqual(names.sort(), [...expected].sort(), 'Unexpected tools in the selected profile');
+    else assert.ok(names.includes('canvas_read'));
     return tools;
   } finally { await client.close(); }
 }
@@ -39,7 +43,8 @@ export function discoverHost(hostRoot = path.resolve(projectRoot, '../deepseek/c
     cordis: resolve('@deepseek-ai/cordis'),
   };
 }
-export function buildConfig({ url, projectId, entry = path.join(projectRoot, 'server/plugin.js'), node = process.execPath } = {}) {
+export function buildConfig({ url, projectId, profile, entry = path.join(projectRoot, 'server/plugin.js'), node = process.execPath } = {}) {
+  toolsForProfile(profile);
   if (url !== undefined) {
     const parsed = new URL(url);
     if (parsed.protocol !== 'http:' || !['127.0.0.1', 'localhost'].includes(parsed.hostname) || parsed.username || parsed.password || parsed.pathname !== '/' || parsed.search || parsed.hash) throw new Error('Canvas URL must be a plain loopback HTTP origin.');
@@ -48,7 +53,8 @@ export function buildConfig({ url, projectId, entry = path.join(projectRoot, 'se
     serverName: 'chem_canvas', transport: 'stdio', command: node,
     args: [path.resolve(entry)], cwd: projectRoot,
     env: { ...(url === undefined ? {} : { CHEM_CANVAS_URL: new URL(url).origin }),
-      ...(projectId === undefined ? {} : { CHEM_CANVAS_PROJECT_ID: validateProjectId(projectId) }) },
+      ...(projectId === undefined ? {} : { CHEM_CANVAS_PROJECT_ID: validateProjectId(projectId) }),
+      ...(profile === undefined ? {} : { CHEM_CANVAS_TOOL_PROFILE: profile }) },
     startupTimeoutMs: 30000, toolCallTimeoutMs: 60000, closeTimeoutMs: 5000,
     expandTemplates: false, failOnStartupError: true,
     reconnect: { enabled: true, initialDelayMs: 500, maxDelayMs: 10000, maxAttempts: 5 },
@@ -62,8 +68,8 @@ export async function loadHostModules(host) {
   const [cordis, tools, systemPrompt, mcp] = await Promise.all([host.cordis, host.tools, host.systemPrompt, host.mcpClient].map(file => import(pathToFileURL(file).href)));
   return { cordis, tools, systemPrompt, mcp };
 }
-export function generate({ hostRoot, url, projectId, entry, output = path.join(projectRoot, 'integrations/deepseek/generated') } = {}) {
-  const host = discoverHost(hostRoot), config = buildConfig({ url, projectId, entry });
+export function generate({ hostRoot, url, projectId, profile, entry, output = path.join(projectRoot, 'integrations/deepseek/generated') } = {}) {
+  const host = discoverHost(hostRoot), config = buildConfig({ url, projectId, profile, entry });
   mkdirSync(output, { recursive: true });
   const patchPath = path.join(output, 'chem-canvas.patch.json');
   writeFileSync(patchPath, JSON.stringify(buildPatch(host, config), null, 2) + '\n');
@@ -74,8 +80,8 @@ export function generate({ hostRoot, url, projectId, entry, output = path.join(p
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
   const options = {};
   for (let i = 2; i < process.argv.length; i += 2) {
-    const option = ({ '--host': 'hostRoot', '--url': 'url', '--project': 'projectId', '--output': 'output' })[process.argv[i]];
-    if (!option || !process.argv[i + 1]) throw new Error('Usage: node integrations/deepseek/adapter.mjs [--host PATH] [--url http://127.0.0.1:PORT] [--project ID] [--output PATH]');
+    const option = ({ '--host': 'hostRoot', '--url': 'url', '--project': 'projectId', '--profile': 'profile', '--output': 'output' })[process.argv[i]];
+    if (!option || !process.argv[i + 1]) throw new Error('Usage: node integrations/deepseek/adapter.mjs [--host PATH] [--url http://127.0.0.1:PORT] [--project ID] [--profile full|figure|figure-chemistry] [--output PATH]');
     options[option] = process.argv[i + 1];
   }
   console.log(JSON.stringify(generate(options), null, 2));

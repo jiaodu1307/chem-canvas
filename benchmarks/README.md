@@ -4,6 +4,10 @@
 
 在[图稿展厅](https://jiaodu1307.github.io/chem-canvas/#catalog)中可以查看 16 个文献图表案例。4 个案例做过「只给数据」实验，13 个做过「看原图重绘」实验。钯催化循环同时做过两种实验。每个案例页都标出论文出处和输入条件，可以切换图稿、放大结构、查看核对记录。
 
+## 框选后修改同一处
+
+在 Fujita 的纯 SVG 盲稿上框住产物 5b 的 OTs，提交批注，让 Agent 为穿过文字的分隔线留出缺口。用原批注回看两版，再给导出的 SVG 计分。实测改变的 91 个像素均在框内，下一行 5c 可用作误改对照。[取用原稿、批注和计分器](local-selection/fujita-5b/) · [放大修改前后对照](https://jiaodu1307.github.io/chem-canvas/fujita-dioxytosylation.html#local-edit)
+
 ## 用同一份输入比较两种画法
 
 选择一份下表的 **输入**，在两个全新会话中分别作图。只把输入文件正文发给绘图 Agent，论文、结果页及评分留到评阅阶段。第一组直接写可编辑 SVG；第二组允许使用 Chem Canvas 嵌入分子结构、预览或导出。记录所用模型与版本、工具和原始输出，随后在结果页对照。Fujita、Kirij、Hosoya 三个实验共用的原始任务措辞保存在 [protocol.mjs](publication/data-only/protocol.mjs) 的 `pairedTask` 中。

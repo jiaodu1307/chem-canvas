@@ -8,6 +8,7 @@ import {InMemoryTransport} from '@modelcontextprotocol/sdk/inMemory.js';
 import {startServer} from '../../server/index.js';
 import {createMcpServer} from '../../server/mcp.js';
 import {Resvg} from '@resvg/resvg-js';
+import {createHash} from 'node:crypto';
 
 test('a region note returns only the selected pixels of the saved viewport and cannot be inspected on a different version',async t=>{
   const app=await startServer({port:0,dataDirectory:await mkdtemp(path.join(os.tmpdir(),'figure-region-'))});
@@ -41,4 +42,50 @@ test('a region note returns only the selected pixels of the saved viewport and c
   assert.equal((await call({...inspect,reviewNoteId:'missing'})).isError,true);
   await call({mode:'save',source:source.replace('red','green'),operationId:'s2',expectedRevision:2});
   const stale=await call(inspect);assert.equal(stale.isError,true);assert.match(stale.content[0].text,/旧版/);
+  const comparisonRequest={...inspect,compareWithCurrent:true};
+  const compared=await call(comparisonRequest);
+  const {selectedNote,comparison,revision}=JSON.parse(compared.content[0].text);
+  assert.equal(selectedNote.onCurrentArtwork,false);
+  assert.equal(selectedNote.resolvedAtRevision,null);
+  assert.equal(revision,3);
+  assert.equal(comparison.basis,'same-relative-region');
+  assert.deepEqual(comparison.region,region);
+  assert.equal(comparison.original.revision,2);
+  assert.equal(comparison.current.revision,3);
+  assert.deepEqual(compared.content[1],result.content[1]);
+  assert.notEqual(compared.content[1].data,compared.content[2].data);
+  const currentHash=createHash('sha256').update(Buffer.from(compared.content[2].data,'base64')).digest('hex');
+  assert.equal(currentHash,comparison.current.image.sha256);
+  const metadata=await call({...comparisonRequest,includeImage:false});
+  assert.equal(metadata.content.length,1);
+  assert.equal(JSON.parse(metadata.content[0].text).comparison.original.sourceSha256,figure.sourceSha256);
+  assert.equal((await call({mode:'read',compareWithCurrent:true})).isError,true);
+  assert.equal((await fetch(app.url+'/api/figure/review-comparison?project=default&revision=2&noteId=box')).status,409);
+});
+
+test('region comparison reopens the original molecule version even when the SVG slot source is identical',async t=>{
+  const app=await startServer({port:0,dataDirectory:await mkdtemp(path.join(os.tmpdir(),'molecular-region-'))});
+  t.after(()=>app.close());
+  async function post(route,request){
+    const response=await fetch(app.url+route+'?project=default',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(request)});
+    const result=await response.json();
+    assert.equal(response.status,200,JSON.stringify(result.error));
+    return result;
+  }
+  const molecule=await post('/api/molecules',{actor:'human',operationId:'mol',expectedRevision:0,title:'Structure',smiles:'CCO'});
+  const molId=Object.keys(molecule.document.objects)[0];
+  const source='<svg viewBox="0 0 120 90"><svg data-molecule-id="'+molId+'" x="0" y="0" width="120" height="90"/></svg>';
+  const {figure}=await post('/api/figure/save',{source,operationId:'figure',expectedRevision:1});
+  await post('/api/figure/review',{action:'add',operationId:'region',expectedRevision:2,figureId:figure.id,artworkKey:figure.artworkKey,
+    region:{x:0,y:0,width:1,height:1},text:'Check the structure in this position.'});
+  const compare=r=>fetch(app.url+'/api/figure/review-comparison?project=default&noteId=region&revision='+r);
+  const before=await (await compare(3)).json();
+  await post('/api/molecules',{actor:'agent',operationId:'replace',expectedRevision:3,expectedObjectVersion:1,objectId:molId,title:'Structure',smiles:'c1ccccc1'});
+  assert.equal((await compare(4)).status,409);
+  await post('/api/figure/save',{source,operationId:'refresh',expectedRevision:4});
+  const after=await (await compare(5)).json();
+  assert.deepEqual(after.images[0],before.images[0]);
+  assert.notEqual(after.images[0].data,after.images[1].data);
+  assert.equal(after.comparison.original.sourceSha256,after.comparison.current.sourceSha256);
+  assert.notEqual(after.comparison.original.artworkKey,after.comparison.current.artworkKey);
 });

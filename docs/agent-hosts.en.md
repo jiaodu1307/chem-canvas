@@ -48,6 +48,20 @@ Clients that display image results can show the PNG preview in the conversation.
 
 Use `--project <ID>` with the ID from the canvas URL to bind sessions to the same canvas project. The default canvas address is `http://127.0.0.1:4317`. For a second independent checkout, select an available local port, for example `--url http://127.0.0.1:4318`. With WSL, a container or a remote IDE, run Node, the source checkout and the canvas in the environment that launches the MCP process.
 
+### Hand a selected region to another agent
+
+When updating an existing installation, restart the canvas service with the same data directory and reconnect the MCP server in your client to refresh its tool definitions.
+
+Draw a rectangle in the figure editor, save the comment and copy the request into your agent. A second client bound to the same project can read the same note. In `canvas_figure`, read the requested figure and find the note in `figure.reviewNotes`. Pass its ID as `reviewNoteId` in read mode to inspect the current rectangle. Preview the edit and save with the revision you read and a unique operation ID.
+
+To check the result, read the same note with `compareWithCurrent: true`. The two PNGs show the original and current crops in that order. Their revisions are in `comparison.original` and `comparison.current`. The rectangle covers the same relative position on both pages. If the layout moved, locate the feature again on the revised page. A text-only client can use the figure editor to inspect the pair. Export with the verified revision.
+
+DeepSeek DSH workspaces with the native MCP client use the Cordis adapter. Supply your installed DSH workspace, the canvas project ID and a directory for the generated patch, then pass the patch to your host using the launch command printed by the adapter.
+
+```sh
+node integrations/deepseek/adapter.mjs --host "<DSH workspace>" --project "<project ID>" --profile figure --output "<patch directory>"
+```
+
 ## Connect over Streamable HTTP
 
 Start the server on the computer running the canvas.
@@ -68,6 +82,7 @@ The listener binds to IPv4 loopback and checks the request Host and browser Orig
 | Claude Code 2.0.62 | Registered the generated JSON in an isolated configuration. `claude mcp get chem-canvas` reported `Connected`. |
 | Qoder CLI 1.1.97, international edition on Windows | Used the project installer in a temporary workspace. Both `qoder mcp list` and `qoder mcp get chem-canvas` reported `Connected`. The latter confirmed the local settings file, stdio transport and `figure-chemistry` profile. This was a connection check with no model request. |
 | Kimi Code 2.7.3 on Windows | Loaded the generated workspace configuration, launched Node, completed the MCP handshake and listed all three `figure-chemistry` tools. |
+| DeepSeek DSH 0.2.2-rc.3 and a Kimi project configuration | The native DSH tool registry read the Fujita 5b selection, previewed the SVG edit and saved it. An MCP SDK client launched from the Kimi configuration retrieved byte-identical original and revised crops (revisions 2 and 3) and exported the revised SVG. This check invoked no model. |
 | TRAE IDE and CLI 2.0, Qoder CN IDE, Chinese Qoder CLI and Qoder desktop | Verified the configuration format and underlying stdio process. In-client tool calls still await verification. |
 | Cursor, Claude Desktop, VS Code with Copilot, GitHub Copilot CLI, Gemini CLI, OpenCode and Zed | Presets follow the linked client configuration formats. In-client verification is pending. |
 

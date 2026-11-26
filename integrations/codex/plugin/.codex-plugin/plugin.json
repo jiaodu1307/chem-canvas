@@ -1,6 +1,6 @@
 {
   "name": "chem-canvas",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Author SVG figures and collaborate on a local molecular research canvas.",
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",

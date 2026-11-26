@@ -18,7 +18,7 @@ import { canvasOverview, canvasOverviewImage } from './canvas-overview.js';
 import { editScheme } from './scheme-editor.js';
 import { BenchmarkDashboard } from './benchmark-dashboard.js';
 import { reactionScheme, SCHEME_VERSION } from './reaction-scheme.js';
-import { readFigure, previewFigure, saveFigure, reviewFigure, renderSavedFigure } from './figure-document.js';
+import { readFigure, previewFigure, saveFigure, reviewFigure, renderSavedFigure, compareFigureRegion } from './figure-document.js';
 import { exportSchemeCdxml } from './chemdraw-export.js';
 import { previewCdxmlImport, commitCdxmlImport } from './chemdraw-import.js';
 import { publicationState, publicationLinks, previewPublication, savePublication, exportPublication } from './publication.js';
@@ -176,6 +176,10 @@ export async function startServer({ port = Number(process.env.CHEM_CANVAS_PORT |
       }
       if(request.method==='POST' && url.pathname==='/api/figure/save')return json(response,200,await saveFigure(store,await body(request)));
       if(request.method==='POST' && url.pathname==='/api/figure/review')return json(response,200,await reviewFigure(store,await body(request)));
+      if(request.method==='GET' && url.pathname==='/api/figure/review-comparison'){
+        const query=url.searchParams;
+        return json(response,200,await compareFigureRegion(store.document,query.get('revision'),query.get('noteId'),query.get('images')!=='0'));
+      }
       if(request.method==='GET' && ['/api/figure/render','/api/figure/export'].includes(url.pathname)){
         const figure=await renderSavedFigure(store.document,url.searchParams.get('revision'));
         if(url.pathname.endsWith('/render'))return json(response,200,figure);

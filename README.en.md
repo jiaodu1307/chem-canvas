@@ -44,6 +44,12 @@ Other agents can connect over local MCP stdio or Streamable HTTP. [Configuration
 
 Follow the five arrows around the cycle, then zoom in on the ligands at each palladium centre. The case page records what the drawing agent saw and lets you compare individual runs. [Open the catalytic cycle](https://jiaodu1307.github.io/chem-canvas/fiebor-scheme2.en.html#from-data)
 
+## Ask your agent to edit a selected region
+
+[![The same region around product 5b. A gray line crosses OTs on the left. A gap clears the label on the right.](docs/images/fujita-5b-review.png)](https://jiaodu1307.github.io/chem-canvas/fujita-dioxytosylation.en.html#local-edit)
+
+A region note on Fujita’s blind draft asked the agent to clear the OTs label above 5b. The agent opened a gap in the divider. You can now reopen that note and compare the same area across revisions. All 91 changed pixels in the export fell inside the selection, and all 41 editable labels were preserved. [Inspect the edit](https://jiaodu1307.github.io/chem-canvas/fujita-dioxytosylation.en.html#local-edit) · [Run with your own agent](benchmarks/local-selection/fujita-5b/)
+
 ## Two drawings from the same experimental data
 
 Kirij et al.’s Scheme 5 shows two elimination routes and four alkene products. Both agents received the same structures, reactions and experimental data. The paper figure was held back until review.

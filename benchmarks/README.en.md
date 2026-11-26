@@ -4,6 +4,10 @@
 
 The gallery covers 16 figures and tables from eight papers. Four cases were drawn from data alone and 13 were redrawn with the source image visible. The palladium cycle appears in both groups. Each case page identifies the paper, the input condition and the individual drawings. [Open the gallery](https://jiaodu1307.github.io/chem-canvas/index.en.html#catalog)
 
+## Revise one selected region
+
+Select the upper OTs label on product 5b in the Fujita SVG blind draft. Submit a note asking the agent to open a gap in the crossing divider. Reopen the note to compare revisions, then score the exported SVG. All 91 changed pixels in the recorded run were inside the box. The corresponding feature in row 5c serves as a control for collateral edits. [Get the draft, note and scorer](local-selection/fujita-5b/) · [Inspect the before and after crops](https://jiaodu1307.github.io/chem-canvas/fujita-dioxytosylation.en.html#local-edit)
+
 ## Run a paired comparison
 
 Pick one input below. Start two fresh agent sessions and give each only the contents of that input. In the first session ask for editable SVG drawn directly. In the second allow Chem Canvas to embed molecules, preview the figure or export it. Save the raw outputs and record the model, version and tools used. Open the paper and review records after both drawings are finished. The original shared instructions for the Fujita, Kirij and Hosoya runs are recorded as `pairedTask`. [Read the paired protocol](publication/data-only/protocol.mjs)
