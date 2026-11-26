@@ -48,6 +48,8 @@ Codex 和 Kimi Code CLI 实际列出了画布工具，Claude Code 和 Qoder 国�
 
 在 Fujita 的盲稿上框住 5b 的 OTs 并提交批注后，Agent 给分隔线开了一个缺口。现在可用原批注并排回看修改前后的同一位置。这次导出共改变 91 个像素，全部在框内，41 个可编辑文字标签均保留。[查看实际修订](https://jiaodu1307.github.io/chem-canvas/fujita-dioxytosylation.html#local-edit) · [用自己的 Agent 复测](benchmarks/local-selection/fujita-5b/)
 
+有多条意见时，可在 5b 那条上点「复制这条给 Agent」。在 5b、5c 同时待处理的回放中，旧请求让两行各改变 91 个像素，单条请求只改变了 5b，5c 仍待核对。[查看两次请求和导出评分](benchmarks/local-selection/fujita-5b/#single-note)
+
 ## 同一份实验数据，两种成图
 
 Kirij 等人的 Scheme 5 有两条消除途径和四个烯烃产物。下面两次独立绘图只向 Agent 提供反应、结构和实验数据，论文原图留到出图后核对。

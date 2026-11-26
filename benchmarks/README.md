@@ -8,6 +8,10 @@
 
 在 Fujita 的纯 SVG 盲稿上框住产物 5b 的 OTs，提交批注，让 Agent 为穿过文字的分隔线留出缺口。用原批注回看两版，再给导出的 SVG 计分。实测改变的 91 个像素均在框内，下一行 5c 可用作误改对照。[取用原稿、批注和计分器](local-selection/fujita-5b/) · [放大修改前后对照](https://jiaodu1307.github.io/chem-canvas/fujita-dioxytosylation.html#local-edit)
 
+双批注用例在 5c 加入相同的修改需求，只转交 5b。评分器分别核对真实剪贴板请求的范围、5c 的待处理状态和两行的导出像素。[复核批量请求与单条请求](local-selection/fujita-5b/#single-note)
+
+Hosoya 表格中有两个转化率都是 100，研究者给两格写下相同的加粗要求，只转交 80 °C、20 min 的那格。实测有 148 个像素改变，全部在目标格内，八个时间点的数据均通过核对。[取用同值单元格用例](local-selection/hosoya-conversion/) · [查看表格案例](https://jiaodu1307.github.io/chem-canvas/hosoya-batch-oxidation.html#single-cell)
+
 ## 用同一份输入比较两种画法
 
 选择一份下表的 **输入**，在两个全新会话中分别作图。只把输入文件正文发给绘图 Agent，论文、结果页及评分留到评阅阶段。第一组直接写可编辑 SVG；第二组允许使用 Chem Canvas 嵌入分子结构、预览或导出。记录所用模型与版本、工具和原始输出，随后在结果页对照。Fujita、Kirij、Hosoya 三个实验共用的原始任务措辞保存在 [protocol.mjs](publication/data-only/protocol.mjs) 的 `pairedTask` 中。

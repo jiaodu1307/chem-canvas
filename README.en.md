@@ -50,6 +50,8 @@ Follow the five arrows around the cycle, then zoom in on the ligands at each pal
 
 A region note on Fujita’s blind draft asked the agent to clear the OTs label above 5b. The agent opened a gap in the divider. You can now reopen that note and compare the same area across revisions. All 91 changed pixels in the export fell inside the selection, and all 41 editable labels were preserved. [Inspect the edit](https://jiaodu1307.github.io/chem-canvas/fujita-dioxytosylation.en.html#local-edit) · [Run with your own agent](benchmarks/local-selection/fujita-5b/)
 
+When several notes are open, use the copy button on the note you want to send. In a replay with 5b and 5c pending, the earlier request changed 91 pixels in each row. Copying the 5b note changed only that row and left 5c open. [Inspect both requests and export scores](benchmarks/local-selection/fujita-5b/#single-note)
+
 ## Two drawings from the same experimental data
 
 Kirij et al.’s Scheme 5 shows two elimination routes and four alkene products. Both agents received the same structures, reactions and experimental data. The paper figure was held back until review.

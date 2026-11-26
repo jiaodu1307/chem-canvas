@@ -1,0 +1,89 @@
+{
+  "recipient": "deterministic receipt-driven SVG edits (no LLM)",
+  "projectId": "project-ed80339b-cfab-404c-9678-050f0dcd2b13",
+  "targetNoteId": "2a36fa92-9f3c-40f6-bd65-5cfbd989f712",
+  "controlNoteId": "390b797c-98b3-4369-8dc0-3b5661943912",
+  "requestText": "请在 Chem Canvas 项目 \"project-ed80339b-cfab-404c-9678-050f0dcd2b13\" 中只处理下面这一条批注。图稿 ID 为 \"figure-69929ce8bf1fa93c6d051d54\"。\n批注 \"2a36fa92-9f3c-40f6-bd65-5cfbd989f712\" · r2 · \"请让 5b 上方的 OTs 标签避开灰色横线。仅在分隔线与标签交叠的位置留白，保留标签、化学键和反应数据。\"\n{\"name\":\"canvas_figure\",\"arguments\":{\"projectId\":\"project-ed80339b-cfab-404c-9678-050f0dcd2b13\",\"mode\":\"read\",\"reviewNoteId\":\"2a36fa92-9f3c-40f6-bd65-5cfbd989f712\"}}\n读取后核对图稿和批注 ID，确认仍待核对。位置属于旧版时，在当前图稿中重新确认目标。按指定批注修改并预览。",
+  "before": {
+    "documentId": "fef5e964-35b5-4ea6-91f3-354fc41f2634",
+    "figureId": "figure-69929ce8bf1fa93c6d051d54",
+    "revision": 3,
+    "sourceSha256": "4eedd1c4250d8f41a4b490f2b9eaa4e99a3dcf83e8a446228c0bdb036f64406b",
+    "reviewNotes": [
+      {
+        "id": "2a36fa92-9f3c-40f6-bd65-5cfbd989f712",
+        "text": "请让 5b 上方的 OTs 标签避开灰色横线。仅在分隔线与标签交叠的位置留白，保留标签、化学键和反应数据。",
+        "region": {
+          "x": 0.8854166127780652,
+          "y": 0.42170542197317357,
+          "width": 0.054166774443869636,
+          "height": 0.03565890838671926
+        },
+        "createdAtRevision": 2,
+        "resolvedAtRevision": null,
+        "artworkKey": "26a37b4547dd2a56be082878334da357a123a91898057b5c3775b8cdf0e4ffa0"
+      },
+      {
+        "id": "390b797c-98b3-4369-8dc0-3b5661943912",
+        "text": "请让 5c 上方的 OTs 标签避开灰色横线。仅在分隔线与标签交叠的位置留白，保留标签、化学键和反应数据。",
+        "region": {
+          "x": 0.8854166127780652,
+          "y": 0.6511627795059751,
+          "width": 0.054166774443869636,
+          "height": 0.03565890838671926
+        },
+        "createdAtRevision": 3,
+        "resolvedAtRevision": null,
+        "artworkKey": "26a37b4547dd2a56be082878334da357a123a91898057b5c3775b8cdf0e4ffa0"
+      }
+    ]
+  },
+  "after": {
+    "documentId": "fef5e964-35b5-4ea6-91f3-354fc41f2634",
+    "figureId": "figure-69929ce8bf1fa93c6d051d54",
+    "revision": 4,
+    "sourceSha256": "bf416cbc149219368448251ec430e45525cc9349d4258d3bb319c05e769e2754",
+    "reviewNotes": [
+      {
+        "id": "2a36fa92-9f3c-40f6-bd65-5cfbd989f712",
+        "text": "请让 5b 上方的 OTs 标签避开灰色横线。仅在分隔线与标签交叠的位置留白，保留标签、化学键和反应数据。",
+        "region": {
+          "x": 0.8854166127780652,
+          "y": 0.42170542197317357,
+          "width": 0.054166774443869636,
+          "height": 0.03565890838671926
+        },
+        "createdAtRevision": 2,
+        "resolvedAtRevision": null,
+        "artworkKey": "26a37b4547dd2a56be082878334da357a123a91898057b5c3775b8cdf0e4ffa0"
+      },
+      {
+        "id": "390b797c-98b3-4369-8dc0-3b5661943912",
+        "text": "请让 5c 上方的 OTs 标签避开灰色横线。仅在分隔线与标签交叠的位置留白，保留标签、化学键和反应数据。",
+        "region": {
+          "x": 0.8854166127780652,
+          "y": 0.6511627795059751,
+          "width": 0.054166774443869636,
+          "height": 0.03565890838671926
+        },
+        "createdAtRevision": 3,
+        "resolvedAtRevision": null,
+        "artworkKey": "26a37b4547dd2a56be082878334da357a123a91898057b5c3775b8cdf0e4ffa0"
+      }
+    ]
+  },
+  "exportSha256": "f11691a705e1ab9c6f830a5bff71cba73cdf2a680098a4b93213379b8002fee1",
+  "researcherReview": {
+    "revision": 5,
+    "notes": [
+      {
+        "id": "2a36fa92-9f3c-40f6-bd65-5cfbd989f712",
+        "resolvedAtRevision": 5
+      },
+      {
+        "id": "390b797c-98b3-4369-8dc0-3b5661943912",
+        "resolvedAtRevision": null
+      }
+    ]
+  }
+}

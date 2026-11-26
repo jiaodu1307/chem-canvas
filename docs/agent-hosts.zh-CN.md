@@ -44,7 +44,7 @@ node scripts/plugin-config.js --host cursor --profile figure-chemistry
 
 升级已有安装后，用原数据目录重启画布服务，再在宿主中重新连接 MCP 服务以刷新工具定义。
 
-在图稿编辑页框选、保存批注，将页面生成的请求复制给 Agent。绑定到同一项目的另一个客户端也能读取这条批注。用 `canvas_figure` 读取指定图稿，从 `figure.reviewNotes` 找到目标批注，在 read 模式传入它的 `reviewNoteId` 查看当前选区。预览局部改动，用刚读取的版本号和唯一的操作 ID 保存。
+在图稿编辑页框选并保存批注。有多条意见待核对时，在目标批注旁点 **复制这条给 Agent**。需要一并处理时，点 **复制全部 … 条给 Agent**。将文本粘贴到绑定该项目的任一 Agent。文本含图稿 ID、批注 ID、版本号、原文和一行 JSON 工具调用。用其中的 `arguments` 调用客户端已注册的 `canvas_figure`。确认目标批注仍待核对后，按交接范围修改并预览，再用刚读取的版本号和唯一的操作 ID 保存。
 
 保存后再次读取同一批注，加入 `compareWithCurrent: true`。返回的两张 PNG 依次是批注原版和当前版的选区，版本号在 `comparison.original`、`comparison.current` 中。选框在两版中使用相同的图面相对位置。若版式有移动，请重新核对目标所在位置。纯文本宿主可在图稿编辑页对照两张图，核对后按当前版本导出。
 
@@ -86,3 +86,5 @@ Windows 上使用官方 Qoder CLI 1.1.97，在临时工作区执行本指南的 
 HTTP 回归使用 SDK 的 `StreamableHTTPClientTransport` 连接独立临时项目，发现工具、保存、回读并导出 SVG，同时验证项目不匹配、错误 Host、错误 Origin、跨站与错误路径均被拒绝。
 
 DeepSeek DSH 0.2.2-rc.3 的原生工具注册器读取了 Fujita 5b 框选，预览并保存 SVG 修改。按 Kimi 项目配置启动的 MCP SDK 客户端回读了相同的两张 PNG（r2、r3，分别逐字节一致），并导出了修改后的 SVG。这次验收未调用模型。
+
+在 Fujita 的 5b、5c 两条批注均待核对时，原生 Codex app-server 0.171.0-alpha.13.2 执行了 Edge 从 5b 批注复制出的 JSON。纯文本读取也定位到同一条 5b。局部改动从 r3 保存为 r4，5c 的选区 PNG 逐字节保持一致，批注仍待核对。导出 SVG 与浏览器验收一致，全程直接调用工具。

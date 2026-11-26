@@ -32,6 +32,31 @@ Fujita et al. reported three styrene series in Table 1. In the earlier visual re
 
 The recorded note asked for a gap where the divider crossed 5b. Previously, reopening the note after saving returned a stale-position error. The retest retrieved crops from r2 and r3 through the same note. Shown at 4×, the gray rule crosses OTs on the left and stops on either side on the right. The export check counted 91 changed pixels inside the box, zero outside, and all 41 original labels. [Recorded r3 export](example-export.svg)
 
+<a id="single-note"></a>
+
+## 只把 5b 交给 Agent / Hand off 5b alone
+
+[查看工作台实图，定位单条和全部复制按钮 / See the workbench with both selections and copy buttons](editor-handoff.png)
+
+1. 另开空项目，按上文添加 5b 框选批注。在 (850, 420) 到 (902, 443) 另框出 5c，留下第二条要求为 5c 横线开缺口的批注。两条均保持待核对。
+2. 在 5b 批注上点「复制这条给 Agent」，将剪贴板原文交给 Agent。保存修改前后各读取一次图稿，导出已保存的版本。保留剪贴板原文，以及每次读取返回的项目标识、图稿标识、修订号、源摘要和批注。
+3. 用下方 `--handoff` 命令核对请求指向哪条批注、5c 是否仍待核对，以及实际导出的 5c 和框外图稿有没有变化。这几项测量可以区分复制时混入其他批注，以及 Agent 在接收单条批注后误改邻行这两种情况。
+
+1. Start a new project and add the 5b region note from above. Add another note around 5c, from (850, 420) to (902, 443), asking for a gap in its divider. Leave both notes open.
+2. Use the copy button on the 5b note and give the agent the clipboard text verbatim. Read the figure before and after saving the edit, then export the saved revision. Keep the copied text and both reads, including project and figure identifiers, revisions, source hashes and notes.
+3. Run the `--handoff` check below. It identifies the note addressed in the request, checks that 5c remains open, then scores the actual export. These measurements distinguish a request that includes both notes from an edit that changes both rows after the agent received only 5b.
+
+两次实测都通过浏览器添加批注、复制请求，由确定性程序按剪贴板里的 MCP 调用读图并保存 SVG。程序按读到的每一条批注为对应的 OTs 留白，模型调用次数为零。基线固定在提交 `93ebddb`。Both runs used the browser clipboard and a deterministic MCP client. It opened a gap for each note addressed by the copied request. There were zero model calls.
+
+| 实测 / Run | 剪贴板指定的批注 / Addressed | 5b 改变像素 / Changed | 5c 改变像素 / Changed | r4 保存后 / After save |
+| --- | --- | ---: | ---: | --- |
+| [93ebddb 基线 / Baseline](handoff-baseline.json) | 5b, 5c | 91 | 91 | 两条均待核对 / Both open |
+| [仅复制 5b / Copy 5b alone](handoff-single.json) | 5b | 91 | 0 | 两条均待核对 / Both open |
+
+两个选框以外的像素差异均为零。单条复测在 r5 从界面仅标记 5b 已核对，5c 仍待处理。Outside both boxes, each export had zero changed pixels. After the reviewer marked 5b complete in the single-note run, 5c remained open at r5.
+
+新的测试回执可参照以上 JSON。填写隔离项目 ID、两条批注 ID、剪贴板原文和实际导出文件的 SHA-256。保存前后的 `before` 和 `after` 从各次 `canvas_figure` 读取结果取值，保留 `documentId`、`revision`、`figure.id`、`figure.sourceSha256` 以及 `figure.reviewNotes` 中的 ID、文字、位置和版本字段。For a new run, follow the recorded JSON shape. Use the captured clipboard text and the identifiers, notes and hashes from the two figure reads and the export.
+
 ## 运行 / Run
 
 在安装依赖后的仓库根目录执行。Run from the repository root after `npm ci`.
@@ -40,6 +65,13 @@ The recorded note asked for a gap where the divider crossed 5b. Previously, reop
 node benchmarks/local-selection/fujita-5b/check.mjs --self-test
 node benchmarks/local-selection/fujita-5b/check.mjs benchmarks/local-selection/fujita-5b/example-export.svg
 node benchmarks/local-selection/fujita-5b/check.mjs exported.svg
+```
+
+在用例目录运行以下两条命令。基线预期退出 1，单条复测预期退出 0。Run these commands from the case directory. The baseline should exit 1 and the single-note run should exit 0.
+
+```sh
+node check.mjs --handoff handoff-baseline.json handoff-baseline.svg
+node check.mjs --handoff handoff-single.json example-export.svg
 ```
 
 计分成功时退出码为 0。通过需要 `selectedMismatchPixels` 和 `outsideSelectionChangedPixels` 均为 0，且 `editableLabelsPreserved` 为 true。`control5cChangedPixels` 单列 5c 对应框中的像素差异。`targetChangedPixels` 是本机渲染时参考缺口实际改变的像素数。

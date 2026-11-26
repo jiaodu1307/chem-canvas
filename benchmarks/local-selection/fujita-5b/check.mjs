@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { Resvg } from '@resvg/resvg-js';
 import { SaxesParser } from 'saxes';
+import { scoreHandoff } from './handoff-score.mjs';
 
 const sourceDigest = '4eedd1c4250d8f41a4b490f2b9eaa4e99a3dcf83e8a446228c0bdb036f64406b';
 const runId = 'fujita-dioxytosylation-vector-from-data-2026-11-25T01-29-30-891Z-a4f3ce3c';
@@ -102,8 +103,9 @@ function check({ labels, input, target }, candidate) {
 }
 
 const args = process.argv.slice(2);
-if (args.length !== 1) {
-  console.error('Usage: node benchmarks/local-selection/fujita-5b/check.mjs --self-test | exported.svg');
+const withHandoff = args.length === 3 && args[0] === '--handoff';
+if (args.length !== 1 && !withHandoff) {
+  console.error('Usage: node benchmarks/local-selection/fujita-5b/check.mjs --self-test | exported.svg | --handoff receipt.json exported.svg');
   process.exitCode = 2;
 } else {
   const source = await readBlindDraft();
@@ -126,11 +128,34 @@ if (args.length !== 1) {
     assert.ok(controls.bothRows.control5cChangedPixels > 0);
     assert.equal(controls.deletedLabel.editableLabelsPreserved, false);
     assert.equal(controls.deletedLabel.pass, false);
-    console.log(JSON.stringify({ mode: 'scorer-self-test', controls }, null, 2));
+    const receipt = JSON.parse(await readFile(new URL('./handoff-single.json', import.meta.url), 'utf8'));
+    const exported = await readFile(new URL('./example-export.svg', import.meta.url));
+    const scope = text => scoreHandoff({ ...receipt, requestText: text }, exported, sourceDigest).checks.targetOnly;
+    const toolLine = receipt.requestText.split('\n').find(line => line.startsWith('{"name":'));
+    const args = JSON.parse(toolLine).arguments;
+    const requestControls = {
+      recorded: scope(receipt.requestText),
+      wrongTool: scope(receipt.requestText.replace(toolLine, JSON.stringify({ name: 'canvas_read', arguments: args }))),
+      idInProseOnly: scope(receipt.requestText.replace(toolLine, '')),
+      legacyCall: scope(receipt.before.figureId + '。请调用 canvas_figure ' + JSON.stringify(args)),
+      legacyUnnamedArgs: scope(receipt.before.figureId + '。' + JSON.stringify(args)),
+    };
+    assert.deepEqual(requestControls, {
+      recorded: true, wrongTool: false, idInProseOnly: false, legacyCall: true, legacyUnnamedArgs: false,
+    });
+    console.log(JSON.stringify({ mode: 'scorer-self-test', controls, requestControls }, null, 2));
   } else {
-    const candidate = await readFile(args[0], 'utf8');
+    const candidate = await readFile(args.at(-1), 'utf8');
     const result = check(reference, candidate);
-    console.log(JSON.stringify({ mode: 'score-export', sourceSha256: sourceDigest, ...result }, null, 2));
-    if (!result.pass) process.exitCode = 1;
+    if (withHandoff) {
+      const receipt = JSON.parse(await readFile(args[1], 'utf8'));
+      const handoff = scoreHandoff(receipt, candidate, sourceDigest);
+      const pass = handoff.pass && result.pass;
+      console.log(JSON.stringify({ mode: 'score-handoff', pass, handoff, artwork: result }, null, 2));
+      if (!pass) process.exitCode = 1;
+    } else {
+      console.log(JSON.stringify({ mode: 'score-export', sourceSha256: sourceDigest, ...result }, null, 2));
+      if (!result.pass) process.exitCode = 1;
+    }
   }
 }

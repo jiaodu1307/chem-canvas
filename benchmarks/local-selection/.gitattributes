@@ -1,0 +1,2 @@
+# The handoff receipts record the byte hash of the exported artwork.
+*.svg text eol=lf

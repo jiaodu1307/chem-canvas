@@ -1,5 +1,6 @@
 import {projectId} from './workspace-context.js';
 import {bindRegionSelection} from './figure-region.js';
+import {figureReviewRequest} from './figure-review-request.js';
 
 const el=id=>document.getElementById(id);
 const percent=n=>Math.round(n*100)+'%';
@@ -8,7 +9,7 @@ const bounded=n=>Math.min(1,Math.max(0,n));
 
 export function figureReviews({write,compare,run,applyState,currentRevision}){
   const field=el('review-text'),pick=el('pick-point'),reset=el('review-reset');
-  let figure=null,visible=false,busy=true,point=null,region=null,draftKey=null,pending=null;
+  let figure=null,visible=false,busy=true,point=null,region=null,draftKey=null,pending=null,copySequence=0;
   const area=bindRegionSelection(pick,{onChange(){pins();controls();},onSelect(rect){choose(null,rect);field.focus();}});
   const outdated=()=>draftKey!==null && draftKey!==figure?.artworkKey;
   const hasDraft=()=>Boolean(field.value.trim() || point || region || area.first);
@@ -94,7 +95,11 @@ export function figureReviews({write,compare,run,applyState,currentRevision}){
     row.append(toggle,panel);
   }
   function list(){
+    copySequence++;
     el('review-request').hidden=true;
+    if(el('review-status').textContent.startsWith('正在复制'))el('review-status').textContent='';
+    const open=figure?.reviewNotes.filter(note=>!note.resolvedAtRevision) ?? [];
+    el('review-copy').textContent=open.length>1?'复制全部 '+open.length+' 条给 Agent':'复制这条给 Agent';
     const rows=(figure?.reviewNotes ?? []).map((note,i)=>{
       const li=document.createElement('li'),body=document.createElement('p'),meta=document.createElement('small');
       li.id='review-note-'+(i+1);li.tabIndex=-1;
@@ -102,6 +107,13 @@ export function figureReviews({write,compare,run,applyState,currentRevision}){
       meta.textContent=[note.resolvedAtRevision?'已核对':'待核对',note.onCurrentArtwork?'当前图稿':'旧版位置','r'+note.createdAtRevision,position(note.point,note.region)].join(' · ');
       li.append(body,meta);
       if(!note.resolvedAtRevision){
+        if(open.length>1){
+          const copy=document.createElement('button');
+          copy.type='button';copy.textContent='复制这条给 Agent';
+          copy.setAttribute('aria-label','复制批注 '+(i+1)+' 给 Agent');
+          copy.onclick=()=>copyRequest([note]);
+          li.append(copy);
+        }
         const btn=document.createElement('button');btn.type='button';btn.textContent='标为已核对';
         btn.onclick=()=>run(async()=>{
           const state=await write({action:'resolve',operationId:crypto.randomUUID(),expectedRevision:currentRevision(),figureId:figure.id,noteId:note.id});
@@ -120,21 +132,24 @@ export function figureReviews({write,compare,run,applyState,currentRevision}){
   }
   reset.onclick=()=>choose(null);
   el('review-region').onclick=()=>area.active?area.cancel():area.start();
-  el('review-copy').onclick=async()=>{
-    const open=figure.reviewNotes.filter(note=>!note.resolvedAtRevision);
-    const revisions=open.map(note=>'r'+note.createdAtRevision).join('、');
-    const inspect=open.filter(note=>note.region).map(note=>' 批注 r'+note.createdAtRevision+'：请调用 canvas_figure '+JSON.stringify({
-      projectId,mode:'read',reviewNoteId:note.id,...(!note.onCurrentArtwork && {compareWithCurrent:true})
-    })+(note.onCurrentArtwork?' 查看选框。':' 对照批注时与当前版的同一位置。')).join('');
-    const request='请读取 Chem Canvas 项目 '+JSON.stringify(projectId)+' 的图稿（canvas_figure，mode=read），核对图稿 ID '+figure.id+'。请处理添加于 '+revisions+' 且仍待核对的批注，修改后预览。旧版位置请结合批注内容在当前图中重新定位。'+inspect;
+  async function copyRequest(notes){
+    const sequence=++copySequence;
+    const request=figureReviewRequest(projectId,figure.id,notes);
+    const output=el('review-request');
+    const target=notes.length===1?'批注 '+(figure.reviewNotes.indexOf(notes[0])+1):'全部 '+notes.length+' 条批注';
+    const status=el('review-status');
+    output.hidden=true;
+    status.textContent='正在复制'+target+'…';
     try{
       await navigator.clipboard.writeText(request);
-      el('review-status').textContent='请求已复制，可粘贴到 Agent 对话。';
+      if(sequence===copySequence)status.textContent='已复制'+target+'，可粘贴到 Agent 对话。';
     }catch{
-      const output=el('review-request');output.value=request;output.hidden=false;output.focus();output.select();
-      el('review-status').textContent='请复制选中的请求，粘贴到 Agent 对话。';
+      if(sequence!==copySequence)return;
+      output.value=request;output.hidden=false;output.focus();output.select();
+      status.textContent='请手动复制'+target+'的请求，粘贴到 Agent 对话。';
     }
-  };
+  }
+  el('review-copy').onclick=()=>copyRequest(figure.reviewNotes.filter(note=>!note.resolvedAtRevision));
   const keyboardPoint=()=>outdated() || !point?{x:.5,y:.5}:point;
   pick.onclick=event=>{
     if(area.click(event))return;

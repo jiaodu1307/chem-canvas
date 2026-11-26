@@ -52,7 +52,7 @@ Use `--project <ID>` with the ID from the canvas URL to bind sessions to the sam
 
 When updating an existing installation, restart the canvas service with the same data directory and reconnect the MCP server in your client to refresh its tool definitions.
 
-Draw a rectangle in the figure editor, save the comment and copy the request into your agent. A second client bound to the same project can read the same note. In `canvas_figure`, read the requested figure and find the note in `figure.reviewNotes`. Pass its ID as `reviewNoteId` in read mode to inspect the current rectangle. Preview the edit and save with the revision you read and a unique operation ID.
+Draw a rectangle and save the comment. When multiple comments are open, use **复制这条给 Agent** beside the one you want to edit. Use **复制全部 … 条给 Agent** to request all open comments. Paste the copied text into any agent bound to the project. It includes the figure ID, note ID, revision, comment and a JSON tool call. Invoke the client's registered `canvas_figure` tool with the supplied `arguments`. Verify the selected note is still open and edit only the requested scope. Preview the edit and save with the revision you read and a unique operation ID.
 
 To check the result, read the same note with `compareWithCurrent: true`. The two PNGs show the original and current crops in that order. Their revisions are in `comparison.original` and `comparison.current`. The rectangle covers the same relative position on both pages. If the layout moved, locate the feature again on the revised page. A text-only client can use the figure editor to inspect the pair. Export with the verified revision.
 
@@ -79,6 +79,7 @@ The listener binds to IPv4 loopback and checks the request Host and browser Orig
 | Scope | Result |
 | --- | --- |
 | Codex app-server | Loaded the generated TOML in an isolated configuration and discovered `canvas_figure` as the only tool under the `figure` profile. |
+| Codex app-server 0.171.0-alpha.13.2, single-note handoff | With two Fujita notes open, the native tool client executed the JSON copied from the 5b row in Edge. An image-free read selected the same note. The saved edit changed the 5b crop, preserved the 5c crop byte for byte and left its note open. The SVG export matched the browser run. The check used direct tool calls without a model turn. |
 | Claude Code 2.0.62 | Registered the generated JSON in an isolated configuration. `claude mcp get chem-canvas` reported `Connected`. |
 | Qoder CLI 1.1.97, international edition on Windows | Used the project installer in a temporary workspace. Both `qoder mcp list` and `qoder mcp get chem-canvas` reported `Connected`. The latter confirmed the local settings file, stdio transport and `figure-chemistry` profile. This was a connection check with no model request. |
 | Kimi Code 2.7.3 on Windows | Loaded the generated workspace configuration, launched Node, completed the MCP handshake and listed all three `figure-chemistry` tools. |
