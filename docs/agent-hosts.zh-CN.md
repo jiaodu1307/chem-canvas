@@ -40,6 +40,10 @@ node scripts/plugin-config.js --host cursor --profile figure-chemistry
 
 **绑定明确的项目。** 多个会话共同修改同一项目时，可在命令中加上 `--project <项目ID>`；这里填写画布网址中的项目 ID。需要从另一个安装目录启动一份独立服务时，用 `--url http://127.0.0.1:4318` 选择另一个可用端口。MCP 进程需要与研究画布处于同一运行环境。远程 IDE、容器或 WSL 中可把 Node、源码和画布一并放在该环境。
 
+### 按期刊排版宽度预览
+
+期刊有指定排版宽度时，调用 `canvas_figure` 预览，把 SVG 放在 `source`，同时传入 `"mode":"preview","printWidthMm":85`。在 `textPreflight.printFonts.runs` 里按文字或元素 ID 核对各片段的 `pointSize`。画布上的「印刷宽度 (mm)」也可查看整图可测字号范围。[可复跑的 85/170 mm 对照](../benchmarks/publication/print-width/)
+
 ### 把一条框选批注交给另一个 Agent
 
 升级已有安装后，用原数据目录重启画布服务，再在宿主中重新连接 MCP 服务以刷新工具定义。

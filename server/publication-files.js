@@ -103,7 +103,7 @@ function paragraph(value, { bold = false, size = 20, after = 60 } = {}) {
     (bold ? '<w:b/>' : '') + '<w:sz w:val="'+size+'"/></w:rPr>'+runs+'</w:r></w:p>';
 }
 
-function editableTable(headers, rows, width) {
+function editableTable(headers, rows, width, rowBold = []) {
   if (!Array.isArray(headers) || !headers.length || headers.length > 55 || !Array.isArray(rows) || rows.some(r => !Array.isArray(r) || r.length !== headers.length)) {
     throw invalid('优化表的表头和行列数不一致。');
   }
@@ -112,12 +112,12 @@ function editableTable(headers, rows, width) {
   const widths = weights.map(weight => Math.floor(width*weight/sum));
   widths[widths.length-1] += width - widths.reduce((a,b) => a+b, 0);
   const borders = '<w:tblBorders><w:top w:val="single" w:sz="10" w:color="242424"/><w:bottom w:val="single" w:sz="10" w:color="242424"/></w:tblBorders>';
-  const row = (values, heading) => '<w:tr><w:trPr><w:cantSplit/>' + (heading?'<w:tblHeader/>':'') + '</w:trPr>' +
+  const row = (values, heading, bold) => '<w:tr><w:trPr><w:cantSplit/>' + (heading?'<w:tblHeader/>':'') + '</w:trPr>' +
     values.map((v,i) => '<w:tc><w:tcPr><w:tcW w:w="'+widths[i]+'" w:type="dxa"/>' +
       (heading?'<w:tcBorders><w:bottom w:val="single" w:sz="6" w:color="242424"/></w:tcBorders>':'') +
-      '</w:tcPr>'+paragraph(v, {bold:heading,size:18})+'</w:tc>').join('') + '</w:tr>';
+      '</w:tcPr>'+paragraph(v, {bold,size:18})+'</w:tc>').join('') + '</w:tr>';
   return '<w:tbl><w:tblPr><w:tblW w:w="'+width+'" w:type="dxa"/>'+borders+'<w:tblLayout w:type="fixed"/></w:tblPr><w:tblGrid>'+
-    widths.map(w => '<w:gridCol w:w="'+w+'"/>').join('')+'</w:tblGrid>'+row(headers,true)+rows.map(r=>row(r,false)).join('')+'</w:tbl>';
+    widths.map(w => '<w:gridCol w:w="'+w+'"/>').join('')+'</w:tblGrid>'+row(headers,true,true)+rows.map((r,i)=>row(r,false,rowBold[i])).join('')+'</w:tbl>';
 }
 
 function wordReaction(svg, availableTwips) {
@@ -139,7 +139,7 @@ function wordTable(rendering, spec) {
   if (available > pageWidth - 2*leftMargin) throw invalid('目标表宽超出 Word 页面的可用宽度。');
   const bands = rendering.tableColumnBands ?? [rendering.tableHeaders.map((_,i)=>i)];
   const table = bands.map(indices => editableTable(indices.map(i=>rendering.tableHeaders[i]),
-    rendering.tableRows.map(row=>indices.map(i=>row[i])),available)).join(paragraph('',{size:4,after:35}));
+    rendering.tableRows.map(row=>indices.map(i=>row[i])),available,rendering.tableRowBold)).join(paragraph('',{size:4,after:35}));
   const reaction = rendering.reactionSvg ? wordReaction(rendering.reactionSvg, available) : null;
   const rel = (id,type,target) => '<Relationship Id="'+id+'" Type="'+nsOffice+'/'+type+'" Target="'+target+'"/>';
   const relationships = contents => '<Relationships xmlns="'+nsRel+'">'+contents+'</Relationships>';

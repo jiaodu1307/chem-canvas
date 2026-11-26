@@ -172,7 +172,7 @@ export async function startServer({ port = Number(process.env.CHEM_CANVAS_PORT |
       }
       if(request.method==='POST' && url.pathname==='/api/figure/preview'){
         const input=await body(request);
-        return json(response,200,await previewFigure(store.document,input.source,input.checkText));
+        return json(response,200,await previewFigure(store.document,input.source,input.checkText,input.printWidthMm));
       }
       if(request.method==='POST' && url.pathname==='/api/figure/save')return json(response,200,await saveFigure(store,await body(request)));
       if(request.method==='POST' && url.pathname==='/api/figure/review')return json(response,200,await reviewFigure(store,await body(request)));

@@ -1,0 +1,20 @@
+{
+  "title": "Table 1. Optimizing reaction condition for 4a.",
+  "journal": "obc",
+  "columns": 2,
+  "kind": "optimization",
+  "conditionColumns": ["Solvent", "Catalyst (50 mol%)", "Temperature (°C)", "Time (h)"],
+  "experiments": [
+    {"id":"1","conditions":{"Solvent":"H₂O","Catalyst (50 mol%)":"Piperidine","Temperature (°C)":"25","Time (h)":"24"},"yield":{"value":"No Reaction"}},
+    {"id":"2","conditions":{"Solvent":"H₂O","Catalyst (50 mol%)":"Piperidine","Temperature (°C)":"100","Time (h)":"24"},"yield":{"value":"No Reaction"}},
+    {"id":"3","conditions":{"Solvent":"EtOH / HCl","Catalyst (50 mol%)":"Piperidine","Temperature (°C)":"78","Time (h)":"24"},"yield":{"value":52}},
+    {"id":"4","conditions":{"Solvent":"EtOH / H₂O","Catalyst (50 mol%)":"Piperidine","Temperature (°C)":"80","Time (h)":"16"},"yield":{"value":27}},
+    {"id":"5","conditions":{"Solvent":"Absolute EtOH","Catalyst (50 mol%)":"Piperidine","Temperature (°C)":"78","Time (h)":"16"},"yield":{"value":56}},
+    {"id":"6","conditions":{"Solvent":"Absolute EtOH","Catalyst (50 mol%)":"Piperidine (100%)","Temperature (°C)":"78","Time (h)":"16"},"yield":{"value":27}},
+    {"id":"7","conditions":{"Solvent":"Absolute EtOH","Catalyst (50 mol%)":"Piperidine (30%)","Temperature (°C)":"78","Time (h)":"16"},"yield":{"value":50}},
+    {"id":"8","conditions":{"Solvent":"Absolute EtOH","Catalyst (50 mol%)":"Piperidine (20%)","Temperature (°C)":"78","Time (h)":"16"},"yield":{"value":49}},
+    {"id":"9","conditions":{"Solvent":"Absolute EtOH","Catalyst (50 mol%)":"Piperidine (10%)","Temperature (°C)":"78","Time (h)":"16"},"yield":{"value":39}},
+    {"id":"10","conditions":{"Solvent":"Absolute EtOH","Catalyst (50 mol%)":"-","Temperature (°C)":"78","Time (h)":"16"},"yield":{"value":32}},
+    {"id":"11","conditions":{"Solvent":"Absolute EtOH","Catalyst (50 mol%)":"Et₃N","Temperature (°C)":"78","Time (h)":"18"},"yield":{"value":47}}
+  ]
+}

@@ -63,7 +63,8 @@ Kirij et al.’s Scheme 5 shows two elimination routes and four alkene products.
 The direct SVG draft abbreviated all 10 CF₃ groups. The tool-assisted draft retained five molecule records and abbreviated two groups. After a renderer update, the same records produced all 10 abbreviations and passed E/Z checks for all four alkenes. [Inspect the paper, first drafts and updated render](https://jiaodu1307.github.io/chem-canvas/kirij-scheme5.en.html#from-data)
 
 - **Reaction screening.** Compare the reaction header, solvents and bases in a Suzuki–Miyaura screening table. [Contreras et al., Table 2](https://jiaodu1307.github.io/chem-canvas/contreras-table2.en.html)
-- **Experimental time series.** Check eight time points in two batch oxidation experiments and inspect the 85 mm single-column proof. [Hosoya et al., Table 2](https://jiaodu1307.github.io/chem-canvas/hosoya-batch-oxidation.en.html#from-data)
+- **Experimental time series.** Check 40 values at eight time points. At an 85 mm print width, the numeric cells measure 4.10 pt in the blind draft and 8.03 pt in the single-column proof. [Hosoya et al., Table 2](https://jiaodu1307.github.io/chem-canvas/hosoya-batch-oxidation.en.html#print-width)
+- **Editable Word tables.** Preserve the bold fifth row and check all 66 exported cells in a reaction screening table. [Aghahosseini et al., Table 1](https://jiaodu1307.github.io/chem-canvas/aghahosseini-table1.en.html#row-emphasis)
 
 ## Install with your agent
 

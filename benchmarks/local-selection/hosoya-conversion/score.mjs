@@ -25,8 +25,23 @@ async function blindDraft() {
   return source;
 }
 
-// The source table is editable SVG text in two named series, laid out with translations.
-// Key cells by their series and displayed position so text painting order can vary.
+// Resvg applies the ancestor-to-child transform list in SVG order. The center of
+// a unit square's bounding box is its transformed center under any affine map.
+function cellKey(group, attributes, transform) {
+  let x = Number(attributes.x ?? 0), y = Number(attributes.y ?? 0);
+  if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+  if (transform) {
+    const escaped = transform.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
+    const marker = `<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><rect x="${x - .5}" y="${y - .5}" width="1" height="1" transform="${escaped}"/></svg>`;
+    const bounds = new Resvg(marker, {font: {loadSystemFonts: false}}).getBBox();
+    if (!bounds) return null;
+    // Suppress the renderer's sub-millipixel rounding at the fixture's scale.
+    x = Number((bounds.x + bounds.width / 2).toFixed(3));
+    y = Number((bounds.y + bounds.height / 2).toFixed(3));
+  }
+  return [group, x, y].join('/');
+}
+
 function tableCells(source) {
   const cells = new Map();
   const stack = [];
@@ -35,16 +50,10 @@ function tableCells(source) {
   parser.on('opentag', ({name, attributes}) => {
     const parent = stack.at(-1);
     const group = series.some(s => s.id === attributes.id) ? attributes.id : parent?.group;
-    let dx = parent?.dx ?? 0, dy = parent?.dy ?? 0;
-    if (group && attributes.transform) {
-      const translate = /^translate\(\s*([-+\d.eE]+)(?:[\s,]+([-+\d.eE]+))?\s*\)$/.exec(attributes.transform);
-      dx += translate ? Number(translate[1]) : NaN;
-      dy += translate ? Number(translate[2] ?? 0) : NaN;
-    }
-    stack.push({group, dx, dy});
+    const transform = [parent?.transform, attributes.transform].filter(Boolean).join(' ');
+    stack.push({group, transform});
     if (group && name === 'text') {
-      const x = Number(attributes.x ?? 0) + dx, y = Number(attributes.y ?? 0) + dy;
-      cell = {key: [group, x, y].join('/'), value: '', openTagEnd: parser.position};
+      cell = {key: cellKey(group, attributes, transform), value: '', openTagEnd: parser.position};
     }
   });
   const append = text => { if (cell) cell.value += text; };

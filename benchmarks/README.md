@@ -12,6 +12,11 @@
 
 Hosoya 表格中有两个转化率都是 100，研究者给两格写下相同的加粗要求，只转交 80 °C、20 min 的那格。实测有 148 个像素改变，全部在目标格内，八个时间点的数据均通过核对。[取用同值单元格用例](local-selection/hosoya-conversion/) · [查看表格案例](https://jiaodu1307.github.io/chem-canvas/hosoya-batch-oxidation.html#single-cell)
 
+## 核对印刷字号和可编辑 Word 表
+
+- **Hosoya · Table 2**　让 Agent 分别按 85 mm 和 170 mm 宽预览盲稿与单栏校对稿，逐项核对 40 个数字和字号。[字号 benchmark](publication/print-width/) · [展厅结果](https://jiaodu1307.github.io/chem-canvas/hosoya-batch-oxidation.html#print-width)
+- **Aghahosseini · Table 1**　对照 11 行、6 列的条件筛选表，核验 SVG 预览和可编辑 Word 表格是否仅在第 5 个数据行使用粗体。[原生表格 benchmark](native-table/aghahosseini-row/) · [展厅结果](https://jiaodu1307.github.io/chem-canvas/aghahosseini-table1.html#row-emphasis)
+
 ## 用同一份输入比较两种画法
 
 选择一份下表的 **输入**，在两个全新会话中分别作图。只把输入文件正文发给绘图 Agent，论文、结果页及评分留到评阅阶段。第一组直接写可编辑 SVG；第二组允许使用 Chem Canvas 嵌入分子结构、预览或导出。记录所用模型与版本、工具和原始输出，随后在结果页对照。Fujita、Kirij、Hosoya 三个实验共用的原始任务措辞保存在 [protocol.mjs](publication/data-only/protocol.mjs) 的 `pairedTask` 中。

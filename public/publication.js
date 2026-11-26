@@ -205,7 +205,7 @@ function conditionNames() {
 function renderRows() {
   const columns = conditionNames();
   const head = document.createElement('tr');
-  for (const title of ['顺序','实验 ID','关联结构','结构角色','结构编号','分组',...columns,'收率','测定方法','附加收率（JSON）','选择性','规模','脚注','来源','用于','操作']) {
+  for (const title of ['顺序','实验 ID','关联结构','结构角色','结构编号','分组',...columns,'收率','测定方法','附加收率（JSON）','选择性','规模','脚注','来源','用于','表格行加粗','操作']) {
     const th = document.createElement('th'); th.scope = 'col'; th.textContent = title; head.append(th);
   }
   byId('head').replaceChildren(head);
@@ -258,6 +258,15 @@ function renderRows() {
     include.value = row.include?.length === 2 ? 'both' : row.include?.[0] || '';
     include.onchange = () => { if (include.value) row.include = include.value === 'both' ? ['scope','optimization'] : [include.value]; else delete row.include; changed(); };
     cell(include);
+    const bold = document.createElement('input');
+    bold.type = 'checkbox';
+    bold.checked = row.bold === true;
+    bold.setAttribute('aria-label', '加粗实验 ' + (row.id || index + 1) + ' 的表格行');
+    bold.onchange = () => {
+      if (bold.checked) row.bold = true; else delete row.bold;
+      changed();
+    };
+    cell(bold);
     const actions = document.createElement('div'); actions.className = 'row-tools';
     for (const [label, dir] of [['上移',-1],['下移',1],['移除',0]]) {
       const button = document.createElement('button'); button.type = 'button'; button.textContent = label;

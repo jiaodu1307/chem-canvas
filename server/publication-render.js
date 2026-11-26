@@ -153,6 +153,7 @@ function tableData(document, spec, rows) {
     scopeStyle: spec.kind==='scope' ? spec.scopeStyle || {} : {},
     tableHeaders: columns.map(([name]) => name),
     tableRows: rows.map(row => columns.map(([, read]) => String(read(row) ?? '—'))),
+    tableRowBold: rows.map(row => row.bold === true),
     footnotes: [...notes].map(([note, key]) => `[${key}] ${note}`), ref, label,
   };
 }
@@ -540,7 +541,7 @@ function drawTable(parts, table, width, y, warnings, bands) {
     parts.push(rule(MARGIN, y, width - MARGIN));
     row(headers, true);
     parts.push(rule(MARGIN, y, width - MARGIN));
-    for (const values of rows) row(values, false);
+    for (const [i, values] of rows.entries()) row(values, table.tableRowBold[i]);
     parts.push(rule(MARGIN, y, width - MARGIN)); y += 8;
   }
   return y;
@@ -684,11 +685,15 @@ export async function renderPublication(document, spec) {
   }
   if (style.frame) parts.push('<rect x=".35" y=".35" width="'+fmt(width-.7)+'" height="'+fmt(height-.7)+'" fill="none" stroke="#ccc" stroke-width=".7"/>');
   if (heightMm > profile.maxHeight) warnings.push({code:'PAGE_HEIGHT_EXCEEDED', message:`Artwork is ${heightMm} mm tall. Split entries across panels before submission.`});
-  const { tableRows, tableHeaders, footnotes } = table;
-  const htmlRow = (values, tag) => '<tr>' + values.map(value => `<${tag}>${esc(value)}</${tag}>`).join('') + '</tr>';
+  const { tableRows, tableHeaders, tableRowBold, footnotes } = table;
+  const htmlRow = (values, tag, bold = false) => '<tr>' + values.map(value => {
+    const text = esc(value);
+    return `<${tag}>${bold ? '<strong>' + text + '</strong>' : text}</${tag}>`;
+  }).join('') + '</tr>';
   const tableHtml = '<!doctype html><html><head><meta charset="utf-8"><title>' + esc(spec.title) +
     '</title></head><body>' + (reactionSvg || '') + '<table><caption>' + esc(spec.title) + '</caption><thead>' +
-    htmlRow(tableHeaders, 'th') + '</thead><tbody>' + tableRows.map(row => htmlRow(row, 'td')).join('') + '</tbody></table>' +
+    htmlRow(tableHeaders, 'th') + '</thead><tbody>' + tableRows.map((row, i) => htmlRow(row, 'td', tableRowBold[i])).join('') + '</tbody></table>' +
     [caption, ...footnotes].filter(Boolean).map(line => '<p>' + esc(line) + '</p>').join('') + '</body></html>';
-  return { svg: svgDocument(parts, width, height, spec.title), tableHtml, tableRows, tableHeaders, tableColumnBands, footnotes, reactionSvg, widthMm, heightMm, title: spec.title, warnings };
+  return { svg: svgDocument(parts, width, height, spec.title), tableHtml, tableRows, tableHeaders, tableColumnBands,
+    ...(tableRowBold.includes(true) && { tableRowBold }), footnotes, reactionSvg, widthMm, heightMm, title: spec.title, warnings };
 }

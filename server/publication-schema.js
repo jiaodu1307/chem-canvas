@@ -33,6 +33,7 @@ const conditionLines = { type: 'array', maxItems: 16, items: { anyOf: [
 ] } };
 const experiment = object({
   id, compoundId: id, label: text(120), group: text(160),
+  bold: { type: 'boolean', description: 'Print every cell of this experiment in bold when it appears as a table row.' },
   conditions: { type: 'object', propertyNames: name, maxProperties: 36, additionalProperties: text(800) },
   yield: object(yieldFields, ['value']),
   additionalYields: additionalYieldsSchema,

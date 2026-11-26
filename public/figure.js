@@ -14,6 +14,7 @@ const available=()=>revision!==null && !busy;
 for(const a of document.querySelectorAll('[data-project]'))a.href=workspacePageUrl(a.getAttribute('href'));
 function controls(){
   source.disabled=!available();
+  el('print-width').disabled=!available();
   el('preview').disabled=!available() || !source.value.trim();
   el('save').disabled=!available() || !source.value.trim() || (!dirty() && !stale);
   el('download').disabled=!available() || dirty() || !savedSource || stale;
@@ -30,6 +31,7 @@ function clearImage(){
   el('paper').hidden=true;
   el('artwork').removeAttribute('src');el('artwork').hidden=true;el('empty').hidden=false;
   el('evidence').textContent='';shownSource=null;
+  el('print-fonts').hidden=true;el('print-fonts').open=false;el('print-font-runs').textContent='';
   if(blobUrl)URL.revokeObjectURL(blobUrl);blobUrl=null;
 }
 function showImage(figure){
@@ -56,6 +58,16 @@ function showImage(figure){
       evidence.push('发现 '+outside+' 处文字越界、'+(findings.length-outside)+' 处行内字形交叠。涉及文字：'+labels.slice(0,3).map(s=>'「'+s.slice(0,36)+'」').join('、')+'。');
     }
     if(check.overlapChecksTruncated)evidence.push('行内片段交叠检查已达到计算上限。');
+    const fonts=check.printFonts;
+    if(fonts){
+      const sizes=fonts.smallestPointSize===fonts.largestPointSize?fonts.smallestPointSize:fonts.smallestPointSize+'–'+fonts.largestPointSize;
+      const range=fonts.measuredRuns?'名义字号 '+sizes+' pt':'无可测字号';
+      evidence.push('按 '+fonts.printWidthMm+' mm 排版，'+range+'（已测 '+fonts.measuredRuns+' 个文字片段，未测 '+fonts.unassessedRuns+' 个）。');
+      el('print-font-runs').textContent=fonts.runs.map(run=>
+        (run.pointSize===null?'未测':run.pointSize+' pt')+'　'+run.text+(run.id?'　#'+run.id:'')
+      ).join('\n');
+      el('print-fonts').hidden=!fonts.runs.length;
+    }
   }
   el('evidence').textContent=evidence.join('');
   shownSource=source.value;
@@ -104,7 +116,16 @@ el('reload').onclick=()=>run(async()=>{
   if(!dirty() || confirm('重新读取会替换当前未保存的源码。继续吗？')){await load();removeSampleParam();}
 });
 el('preview').onclick=()=>run(async()=>{
-  showImage(await api('/api/figure/preview',{source:source.value,checkText:true}));
+  const width=el('print-width');
+  const printWidthMm=width.value===''?undefined:width.valueAsNumber;
+  if(width.validity.badInput || (printWidthMm!==undefined && !(printWidthMm>0))){
+    throw Error('请输入大于零的印刷宽度（毫米）。');
+  }
+  const proof=await api('/api/figure/preview',{source:source.value,checkText:true,printWidthMm});
+  if(printWidthMm!==undefined && proof.textPreflight?.printFonts?.printWidthMm!==printWidthMm){
+    throw Error('服务未返回所选宽度的字号。请使用原数据目录重新启动更新后的 Chem Canvas。');
+  }
+  showImage(proof);
   message(dirty()?'已预览 · 草稿未保存':'已预览 · 项目 r'+revision);
 });
 el('save').onclick=()=>run(async()=>{

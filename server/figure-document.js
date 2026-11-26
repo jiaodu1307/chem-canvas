@@ -28,12 +28,15 @@ export function readFigure(document) {
   return {documentId:document.id,revision:document.revision,figure:description(document,savedFigure(document)),molecules};
 }
 
-export async function previewFigure(document,source,checkText=false) {
+export async function previewFigure(document,source,checkText=false,printWidthMm) {
+  if(printWidthMm!==undefined && (!Number.isFinite(printWidthMm) || printWidthMm<=0)){
+    throw failure('VALIDATION','printWidthMm must be a positive finite number of millimetres.');
+  }
   const {renderFigureSvg}=await import('./figure-svg.js');
   const rendered=await renderFigureSvg(document,source);
-  if(checkText===true){
+  if(checkText===true || printWidthMm!==undefined){
     const {checkSvgText}=await import('./svg-text-preflight.js');
-    rendered.textPreflight=checkSvgText(rendered.svg);
+    rendered.textPreflight=checkSvgText(rendered.svg,{printWidthMm});
   }
   return {documentId:document.id,revision:document.revision,...rendered};
 }

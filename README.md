@@ -63,7 +63,8 @@ Kirij 等人的 Scheme 5 有两条消除途径和四个烯烃产物。下面两�
 复跑盲测可直接取用原始任务，完成绘图后再查看逐项结果。[取用评测输入](benchmarks/README.md)
 
 - **条件筛选表**　比较 Suzuki–Miyaura 偶联的溶剂和碱筛选，检查表头反应式与数据列的排版。[Contreras 等 · Table 2](https://jiaodu1307.github.io/chem-canvas/contreras-table2.html)
-- **实验时间序列**　逐行核对两组批式氧化实验的八个时间点，并查看 85 mm 单栏校对稿。[Hosoya 等 · Table 2](https://jiaodu1307.github.io/chem-canvas/hosoya-batch-oxidation.html)
+- **实验时间序列**　核对八个时间点的 40 个数值，并比较单栏宽度 85 mm 下盲稿的 4.10 pt 与校对稿的 8.03 pt。[Hosoya 等 · Table 2](https://jiaodu1307.github.io/chem-canvas/hosoya-batch-oxidation.html#print-width)
+- **可编辑 Word 表格**　保留条件筛选表中第 5 行的加粗，逐格核对 11 行、6 列的导出结果。[Aghahosseini 等 · Table 1](https://jiaodu1307.github.io/chem-canvas/aghahosseini-table1.html#row-emphasis)
 
 ## 把这段话发给你的 Agent
 

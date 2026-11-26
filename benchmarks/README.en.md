@@ -12,6 +12,11 @@ The two-note variant adds the same requested change on 5c, then hands off 5b alo
 
 In the Hosoya table, two conversions read 100. Both cells received the same note asking for bold type, and only the 80 °C, 20 min cell was assigned. All 148 changed pixels fell inside that cell. The data at all eight time points passed the check. [Run the identical-cell case](local-selection/hosoya-conversion/) · [Inspect the table](https://jiaodu1307.github.io/chem-canvas/hosoya-batch-oxidation.en.html#single-cell)
 
+## Check print type sizes and editable Word tables
+
+- **Hosoya · Table 2.** Preview the blind draft and the single-column proof at widths of 85 mm and 170 mm. Check all 40 values and their type sizes. [Print-width benchmark](publication/print-width/) · [Gallery results](https://jiaodu1307.github.io/chem-canvas/hosoya-batch-oxidation.en.html#print-width)
+- **Aghahosseini · Table 1.** Compare all 66 cells in an eleven-row optimization table. Check that entry 5 is the only bold data row in the SVG preview and editable Word export. [Native-table benchmark](native-table/aghahosseini-row/) · [Gallery results](https://jiaodu1307.github.io/chem-canvas/aghahosseini-table1.en.html#row-emphasis)
+
 ## Run a paired comparison
 
 Pick one input below. Start two fresh agent sessions and give each only the contents of that input. In the first session ask for editable SVG drawn directly. In the second allow Chem Canvas to embed molecules, preview the figure or export it. Save the raw outputs and record the model, version and tools used. Open the paper and review records after both drawings are finished. The original shared instructions for the Fujita, Kirij and Hosoya runs are recorded as `pairedTask`. [Read the paired protocol](publication/data-only/protocol.mjs)

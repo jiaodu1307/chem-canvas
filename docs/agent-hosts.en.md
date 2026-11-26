@@ -48,6 +48,10 @@ Clients that display image results can show the PNG preview in the conversation.
 
 Use `--project <ID>` with the ID from the canvas URL to bind sessions to the same canvas project. The default canvas address is `http://127.0.0.1:4317`. For a second independent checkout, select an available local port, for example `--url http://127.0.0.1:4318`. With WSL, a container or a remote IDE, run Node, the source checkout and the canvas in the environment that launches the MCP process.
 
+### Preview at the final print width
+
+To proof a figure for a specified print width, call `canvas_figure` with the SVG in `source` and `"mode":"preview","printWidthMm":85`. Look up each label by text or element ID in `textPreflight.printFonts.runs` and read its `pointSize`. The figure editor also shows the range of measured sizes when you enter a width in millimetres. [Reproduce the 85 and 170 mm comparison](../benchmarks/publication/print-width/)
+
 ### Hand a selected region to another agent
 
 When updating an existing installation, restart the canvas service with the same data directory and reconnect the MCP server in your client to refresh its tool definitions.

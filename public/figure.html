@@ -10,7 +10,9 @@
   <header><nav><a href="/" data-project>Chem Canvas</a><a href="/publication.html" data-project>结构化期刊图表</a><a href="/publication-benchmark.html" data-project>绘图评测</a></nav></header>
   <main>
     <div class="heading"><div><h1>SVG 图稿</h1><p id="state" role="status">正在读取项目…</p></div>
-      <div class="actions"><button id="reload" type="button">重新读取</button><button id="preview" type="button" disabled>预览</button><button id="save" type="button" disabled>保存图稿</button><button id="download" type="button" disabled>下载 SVG</button></div>
+      <div class="actions"><button id="reload" type="button">重新读取</button>
+        <label class="print-width">印刷宽度 (mm) <input id="print-width" type="number" min="0" step="any" placeholder="可选" disabled></label>
+        <button id="preview" type="button" disabled>预览</button><button id="save" type="button" disabled>保存图稿</button><button id="download" type="button" disabled>下载 SVG</button></div>
     </div>
     <div class="workspace">
       <section class="editor"><label for="source">SVG 源码</label>
@@ -37,7 +39,8 @@
           <textarea id="review-request" rows="3" readonly hidden aria-label="复制这段请求到 Agent 对话"></textarea>
           <p id="review-status" role="status"></p>
         </section>
-        <p id="evidence"></p></section>
+        <p id="evidence"></p>
+        <details id="print-fonts" hidden><summary>查看逐项印刷字号</summary><pre id="print-font-runs"></pre></details></section>
     </div>
   </main>
   <script type="module" src="/figure.js"></script>

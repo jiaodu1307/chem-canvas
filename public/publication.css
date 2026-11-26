@@ -72,6 +72,7 @@ details summary{cursor:pointer;font-weight:550}
 .sheet th{position:sticky;top:0;z-index:1;background:#eaf0e7;font-weight:580;color:#41564a;padding:7px 9px}
 .sheet input,.sheet select{width:105px;padding:5px 6px;font-size:12px;border-color:transparent;background:transparent}
 .sheet input:hover,.sheet select:hover{border-color:#b7c7b7}
+.sheet input[type=checkbox]{width:auto}
 .sheet input:focus,.sheet select:focus{background:white}
 .sheet .compound{width:155px}
 .sheet .notes{width:155px}
